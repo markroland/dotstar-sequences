@@ -1,6 +1,8 @@
 # Adafruit Dotstar RGB LED Strip
 #
 # Fill all LEDs with the same color. Cycle through the spectrum of Red, Yellow, Green, Cyan, Blue, Magenta
+#
+# Related: https://learn.adafruit.com/circuitpython-essentials/circuitpython-internal-rgb-led
 
 # Import required libraries
 import board
@@ -14,15 +16,14 @@ dots = dotstar.DotStar(board.SCK, board.MOSI, 120, brightness=0.2)
 # Option 2: Using a DotStar Digital LED Strip with LEDs connected to digital pins
 # dots = dotstar.DotStar(board.D6, board.D5, 120)
 
-# MAIN LOOP
-n_dots = len(dots)
-while True:
+def get_spectrum_colors():
 
     r = 0
     g = 0
     b = 0
-    loop_step = 0
     spectrum_steps = 255 * 6
+
+    spectrum_colors = [0] * spectrum_steps
 
     # Loop through full spectrum one time
     for loop_step in range(spectrum_steps):
@@ -54,8 +55,25 @@ while True:
             g = 0
             b = 255 - 255 * (loop_step - (5/6.0)*spectrum_steps) / (spectrum_steps/6.0) # ramp down
 
-        # Set each pixel color
-        dots.fill((int(r), int(g), int(b)))
+        spectrum_colors[loop_step] = (int(r), int(g), int(b))
 
-        # Delay before iterating through loop
-        time.sleep(0.020)
+    return spectrum_colors
+
+# MAIN LOOP
+step = 0;
+n_dots = len(dots)
+
+# Load an array(?) of RGB colors for every possible color
+spectrum_colors = get_spectrum_colors()
+
+# Loop forever
+while True:
+
+    # Set each pixel color
+    dots.fill(spectrum_colors[step])
+
+    # Increment step counter
+    step = (step + 1) % (255 * 6)
+
+    # Delay before iterating through loop
+    time.sleep(0.020)
