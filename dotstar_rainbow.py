@@ -53,22 +53,31 @@ def shift(l, n):
 
 # Map spectrum across full range of LEDs
 n_dots = len(dots)
+
+# Initialization. Fill an array of length "n_dots" with zeros
 spectrum = [0] * n_dots
+
+# fill "spectrum" with calculated RGB tuples
 for i in range(n_dots):
     spectrum[i] = get_spectrum_color(n_dots, i)
 
-for i in range(n_dots):
-    dots[i] = spectrum[i]
-
+# Intialize counter
 offset = 0
+
+# Loop forever
 while True:
-    dots.show()
 
     # Shift spectrum
     offset = ((offset + 1) % n_dots)
+
+    # Fill dots object with values from "spectrum".
+    # "dots" can't be assigned directly because it's a "dotstar" object, not an array
     spectrum = shift(spectrum, 1)
     for i in range(n_dots):
         dots[i] = spectrum[i]
 
+    # Render to LED strip
+    dots.show()
+
     # Delay before iterating through loop
-    time.sleep(0.03)
+    time.sleep(0.3)
