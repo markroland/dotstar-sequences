@@ -106,12 +106,16 @@ while True:
     # Render LEDs
     dots.show()
 
+    # Count total revolutions
+    if (offset + 1) == number_of_leds:
+        revolutions += 1
+
     # Increment offset
     offset = (offset + 1) % number_of_leds
 
+    # Stop after 1 revolution
+    # if revolutions == 1:
+        # quit()
+
     # Delay before iterating through loop
     time.sleep(frame_delay)
-
-    # Stop after 1 revolution
-    # if offset == (number_of_leds-1):
-        # quit()
