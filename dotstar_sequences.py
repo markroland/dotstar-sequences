@@ -12,7 +12,7 @@ from sequences import *
 
 # Parse input
 parser = argparse.ArgumentParser()
-parser.add_argument("pattern", type=str, choices=["breathe", "halves", "halves_gradient", "off", "one_dot", "opposite_dots", "spectrum_slide", "spectrum_straight_across", "stripes_spin"], help="Specify the pattern to display")
+parser.add_argument("pattern", type=str, choices=["breathe", "halves", "halves_gradient", "off", "one_dot", "opposite_dots", "spectrum_slide", "spectrum_straight_across", "spectrum_straight_across_with_rotation", "stripes_spin"], help="Specify the pattern to display")
 parser.add_argument("-b", "--brightness", type=float, help="Set the LED brigtness, 0.0 to 1.0")
 parser.add_argument("-d", "--delay", type=float, help="Set the frame delay in seconds")
 args = parser.parse_args()
@@ -88,6 +88,10 @@ while True:
         elif args.pattern == "spectrum_straight_across":
 
             dot_colors = spectrum_straight_across(number_of_leds, offset, spectrum_colors)
+
+        elif args.pattern == "spectrum_straight_across_with_rotation":
+
+            dot_colors = spectrum_straight_across_with_rotation(number_of_leds, revolutions, offset, spectrum_colors)
 
         elif args.pattern == "stripes_spin":
 
