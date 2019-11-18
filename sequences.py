@@ -118,6 +118,12 @@ def stripes_spin(number_of_leds, offset, num_stripes = 6):
 
     return strip_colors
 
+# Fade through all the colors of the spectrum
+def spectrum_fade(number_of_leds, offset, spectrum_colors):
+
+    # Fill an array of length "number_of_leds" with zeros
+    return [spectrum_colors[offset]] * number_of_leds
+
 # Alternate pixels between 2 colors
 def spectrum_slide(number_of_leds, offset, spectrum_colors):
 

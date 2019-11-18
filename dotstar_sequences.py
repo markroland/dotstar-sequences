@@ -58,10 +58,12 @@ offset = 0
 
 # Count revolutions
 revolutions = 0;
+steps_per_revolution = int(number_of_leds)
 
 # Load an array(?) of RGB colors for every possible color
-spectrum_colors = get_spectrum_colors(int(number_of_leds))
-# spectrum_colors = get_spectrum_colors()
+spectrum_steps = int(number_of_leds)
+# spectrum_steps = 255 * 6
+spectrum_colors = get_spectrum_colors(spectrum_steps)
 
 dot_colors = [0] * number_of_leds
 
@@ -101,6 +103,11 @@ while True:
 
             dot_colors = halves_gradient(number_of_leds, offset)
 
+        elif args.pattern == "spectrum_fade":
+
+            steps_per_revolution = len(spectrum_colors)
+            dot_colors = spectrum_fade(number_of_leds, offset, spectrum_colors)
+
         elif args.pattern == "spectrum_slide":
 
             dot_colors = spectrum_slide(number_of_leds, offset, spectrum_colors)
@@ -131,11 +138,11 @@ while True:
     dots.show()
 
     # Count total revolutions
-    if (offset + 1) == number_of_leds:
+    if (offset + 1) == steps_per_revolution:
         revolutions += 1
 
     # Increment offset
-    offset = (offset + 1) % number_of_leds
+    offset = (offset + 1) % steps_per_revolution
 
     # Stop after 1 revolution
     # if revolutions == 1:
