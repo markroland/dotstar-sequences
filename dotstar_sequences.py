@@ -12,7 +12,22 @@ from sequences import *
 
 # Parse input
 parser = argparse.ArgumentParser()
-parser.add_argument("pattern", type=str, choices=["breathe", "halves", "halves_gradient", "off", "one_dot", "opposite_dots", "spectrum_slide", "spectrum_straight_across", "spectrum_straight_across_with_rotation", "stripes_spin"], help="Specify the pattern to display")
+parser.add_argument("pattern", type=str, choices=[
+    "breathe",
+    "halves",
+    "halves_gradient",
+    "off",
+    "one_dot",
+    "opposite_dots",
+    "solid_white",
+    "spectrum_fade",
+    "spectrum_slide",
+    "spectrum_straight_across",
+    "spectrum_straight_across_with_rotation",
+    "stripes_spin"
+    ],
+    help="Specify the pattern to display"
+)
 parser.add_argument("-b", "--brightness", type=float, help="Set the LED brigtness, 0.0 to 1.0")
 parser.add_argument("-d", "--delay", type=float, help="Set the frame delay in seconds")
 args = parser.parse_args()
@@ -50,9 +65,14 @@ spectrum_colors = get_spectrum_colors(int(number_of_leds))
 
 dot_colors = [0] * number_of_leds
 
-# Turn LEDs off
+# Non-looping "sequences"
 if args.pattern == "off":
     dots.deinit();
+    quit();
+elif args.pattern == "solid_white":
+    dots.brightness = brightness
+    dots.fill((255, 255, 255))
+    dots.show()
     quit();
 
 # Loop forever
