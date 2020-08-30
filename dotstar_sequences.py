@@ -20,6 +20,7 @@ parser.add_argument("pattern", type=str, choices=[
     "one_dot",
     "opposite_dots",
     "solid_white",
+    "spectrum",
     "spectrum_fade",
     "spectrum_slide",
     "spectrum_straight_across",
@@ -63,8 +64,14 @@ steps_per_revolution = int(number_of_leds)
 # Load an array(?) of RGB colors for every possible color
 spectrum_steps = int(number_of_leds)
 # spectrum_steps = 255 * 6
-spectrum_colors = get_spectrum_colors(spectrum_steps)
+# spectrum_colors = get_spectrum_colors(spectrum_steps)
+spectrum_colors = get_sinebow_colors(spectrum_steps)
 
+# Debugging
+# for loop_step in range(spectrum_steps):
+    # print(spectrum_colors[loop_step][0], spectrum_colors[loop_step][1], spectrum_colors[loop_step][2], sep="\t")
+
+# Initialize array
 dot_colors = [0] * number_of_leds
 
 # Non-looping "sequences"
@@ -74,6 +81,13 @@ if args.pattern == "off":
 elif args.pattern == "solid_white":
     dots.brightness = brightness
     dots.fill((255, 255, 255))
+    dots.show()
+    quit();
+elif args.pattern == "spectrum":
+    dots.brightness = brightness
+    dot_colors = spectrum_colors
+    for i in range(number_of_leds):
+        dots[i] = dot_colors[i]
     dots.show()
     quit();
 
