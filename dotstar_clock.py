@@ -26,13 +26,19 @@ def rotate_list(my_list, position):
 while True:
 
     # Get clock hand positions
-    second_index = round((int(datetime.now().strftime('%S')) / 60) * number_of_leds)
+    second_index = round((float(datetime.now().strftime('%S.%f')) / 60) * number_of_leds)
+    if second_index >= number_of_leds:
+        second_index = 0
+
     minute_index = round((int(datetime.now().strftime('%M')) / 60) * number_of_leds)
+    if minute_index >= number_of_leds:
+        minute_index = 0
+
     hour_index = round(((int(datetime.now().strftime('%H')) % 12) / 12) * number_of_leds);
     hour_index += round(
         ((int(datetime.now().strftime('%M')) / 60) / 12) * number_of_leds
     )
-    if hour_index > number_of_leds:
+    if hour_index >= number_of_leds:
         hour_index = 0
 
     # Initialization. Fill an array of length "number_of_leds" with zeros
