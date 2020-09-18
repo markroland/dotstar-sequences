@@ -1,5 +1,36 @@
 import math
 
+def rotate_list(my_list, position):
+    return my_list[position:] + my_list[:position]
+
+# - https://observablehq.com/@mbostock/sinebow
+#   - https://krazydad.com/tutorials/makecolors.php
+#     - http://basecase.org/env/on-rainbows
+def get_sinebow_colors(spectrum_steps = 255 * 6):
+
+    r = 0;
+    g = 0;
+    b = 0;
+
+    # Initialize result array
+    spectrum_colors = [0] * spectrum_steps
+
+    # Loop through full spectrum one time
+    for loop_step in range(spectrum_steps):
+
+        r = math.sin((2*math.pi) * (loop_step/spectrum_steps + 0)) * 127.0 + 128
+        g = math.sin((2*math.pi) * (loop_step/spectrum_steps + 0) + (2.0 * (math.pi)/3.0)) * 127.0 + 128
+        b = math.sin((2*math.pi) * (loop_step/spectrum_steps + 0) + (4.0 * (math.pi)/3.0)) * 127.0 + 128
+
+        spectrum_colors[loop_step] = (int(r), int(g), int(b))
+
+    # Shift the values to match get_spectrum_colors
+    # This is arbitrary and not required, but it makes these 2 techniques line up
+    spectrum_colors.reverse();
+    spectrum_colors = rotate_list(spectrum_colors, -31)
+
+    return spectrum_colors
+
 def get_spectrum_colors(spectrum_steps = 255 * 6):
     """Create an array of RGB tuples that define a spectrum of colors (Red, Yellow, Green, Cyan, Blue, Magenta)
 
@@ -54,9 +85,6 @@ def get_spectrum_colors(spectrum_steps = 255 * 6):
         spectrum_colors[loop_step] = (int(r), int(g), int(b))
 
     return spectrum_colors
-
-def rotate_list(my_list, position):
-    return my_list[position:] + my_list[:position]
 
 # Draw one pixel that moves across the LED strip
 def one_dot(number_of_leds, offset):
