@@ -129,8 +129,8 @@ for i in range(number_of_leds):
     for i in range(number_of_leds):
         dots[i] = dot_colors[i]
     dots.show()
-    time.sleep(0.01)
-time.sleep(2)
+    # time.sleep(0.01)
+time.sleep(0.5)
 
 # Initialize timing
 time_0 = time.time()
