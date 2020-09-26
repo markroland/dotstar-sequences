@@ -136,7 +136,7 @@ while True:
 
         elif args.pattern == "stripes_spin":
 
-            dot_colors = stripes_spin(number_of_leds, offset)
+            dot_colors = stripes_spin((200, 0, 0), (0,0,255), number_of_leds, offset)
 
     else:
         dot_colors = spectrum_straight_across(number_of_leds, offset, spectrum_colors)
