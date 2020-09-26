@@ -217,7 +217,10 @@ while (time_now - time_1) < duration:
 
     time_now = time.time()
 
-    new_dot_colors = stripes_spin(number_of_leds, offset, 8)
+    new_dot_colors = stripes((200, 0, 0), (0,128,255), number_of_leds, 8)
+
+    # Rotate colors
+    new_dot_colors = rotate_list(new_dot_colors, offset)
 
     render(new_dot_colors)
 
