@@ -8,6 +8,7 @@ import adafruit_dotstar
 from sequences import *
 import random
 import time
+import colorsys
 
 def random_color():
     return random.randrange(0, 255)
@@ -27,26 +28,25 @@ number_of_leds = 119;
 dots = adafruit_dotstar.DotStar(board.SCK, board.MOSI, number_of_leds, brightness=0.5, auto_write=False)
 
 # Frame period in seconds
-frame_delay = 0.03
+frame_delay = 1/60
 
 # Number of steps between 2 colors
 steps = 50
 
 # Initialize output color array
-dot_colors = [(255,255,255)] * number_of_leds
+dot_colors = [(0,0,0)] * number_of_leds
 
 # Initialize starting colors
-colors_start = [(255,255,255)] * number_of_leds
-
+colors_start = [(0,0,255)] * number_of_leds
 # Random colors
 # for i in range(number_of_leds):
 #     colors_start[i] = ((random_color(), random_color(), random_color()))
 #     # print(colors_start[i][0], colors_start[i][1], colors_start[i][2], sep="\t")
-
-colors_start = get_sinebow_colors(number_of_leds)
+# colors_start = get_sinebow_colors(number_of_leds)
 
 # Ending colors
-colors_end = [(0,0,255)] * number_of_leds
+# colors_end = get_spectrum_colors(number_of_leds)
+colors_end = [(255,255,0)] * number_of_leds
 
 # Set brightness
 dots.brightness = 0.5
@@ -58,9 +58,20 @@ for x in range(0, steps):
     for i in range(number_of_leds):
 
         # Calculate color components
+
+        # Method 1
         r = fade_component(colors_start[i][0], colors_end[i][0], x, steps)
         g = fade_component(colors_start[i][1], colors_end[i][1], x, steps)
         b = fade_component(colors_start[i][2], colors_end[i][2], x, steps)
+
+        # Method 2
+        # h = fade_component(colorsys.rgb_to_hsv(colors_start[i][0],colors_start[i][1],colors_start[i][2])[0], colorsys.rgb_to_hsv(colors_end[i][0], colors_end[i][1], colors_end[i][2])[0], x, steps)
+        # s = fade_component(colorsys.rgb_to_hsv(colors_start[i][0],colors_start[i][1],colors_start[i][2])[1], colorsys.rgb_to_hsv(colors_end[i][0], colors_end[i][1], colors_end[i][2])[1], x, steps)
+        # v = fade_component(colorsys.rgb_to_hsv(colors_start[i][0],colors_start[i][1],colors_start[i][2])[2], colorsys.rgb_to_hsv(colors_end[i][0], colors_end[i][1], colors_end[i][2])[2], x, steps)
+        # new_color = colorsys.hsv_to_rgb(h,s,v)
+        # r = new_color[0]
+        # g = new_color[1]
+        # b = new_color[2]
 
         # Assign RGB to all LEDs
         dot_colors[i] = (int(r), int(g), int(b))
