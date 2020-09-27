@@ -2,6 +2,8 @@
 
 This project contains scripts that perform lighting effect sequences for Adafruit Dotstar LED strips.
 
+![Demo Animation](demo/cuttlefish.gif)
+
 ## Script Descriptions
 
 ##### acceleration.py
