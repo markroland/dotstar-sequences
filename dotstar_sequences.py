@@ -14,6 +14,7 @@ from sequences import *
 parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
     "breathe",
+    "crossing_bands",
     "halves",
     "halves_gradient",
     "off",
@@ -32,6 +33,33 @@ parser.add_argument("pattern", type=str, choices=[
 parser.add_argument("-b", "--brightness", type=float, help="Set the LED brigtness, 0.0 to 1.0")
 parser.add_argument("-d", "--delay", type=float, help="Set the frame delay in seconds")
 args = parser.parse_args()
+
+# Write a List of colors to the Dotstar object and then Show them
+def render(colors):
+
+    # Assign pattern colors to Dotstar object
+    for i in range(number_of_leds):
+        dots[i] = colors[i]
+
+    # Render LEDs
+    dots.show()
+
+# Add the RGB components of 2 colors
+def colors_add(colors_1, colors_2):
+
+    colors = [(0,0,0)] * number_of_leds
+
+    # Initialize array
+    for i in range(number_of_leds):
+        # Calculate color components
+        r = min(colors_1[i][0] + colors_2[i][0], 255)
+        g = min(colors_1[i][1] + colors_2[i][1], 255)
+        b = min(colors_1[i][2] + colors_2[i][2], 255)
+
+        # Assign RGB to all LEDs
+        colors[i] = (int(r), int(g), int(b))
+
+    return colors
 
 # Set Brightness
 brightness = 0.5
@@ -101,7 +129,37 @@ while True:
             dot_colors = [(255, 255, 255)] * number_of_leds
             brightness = breathe(number_of_leds, offset)
 
-        if args.pattern == "one_dot":
+        elif args.pattern == "crossing_bands":
+
+            # Color 1
+            length = int(number_of_leds * 0.25)
+            colors_1 = [(0, 0, 0)] * number_of_leds
+            for i in range(0,length):
+                intensity = round(255 * (length - i) / length)
+                colors_1[i] = (0,0,intensity)
+            colors_1 = rotate_list(colors_1, offset)
+
+            # Color 2 - on "opposite" side of strip going the opposite direction
+            length = int(number_of_leds * 0.25)
+            colors_2 = [(0, 0, 0)] * number_of_leds
+            for i in range(0,length):
+                intensity = round(255 * (length - i) / length)
+                colors_2[i] = (intensity,0,intensity)
+            colors_2.reverse()
+            colors_2 = rotate_list(colors_2, -offset)
+
+            # Add colors
+            dot_colors = colors_add(colors_1, colors_2)
+
+            render(dot_colors)
+
+            # Increment offset
+            offset = (offset + 1) % steps_per_revolution
+
+            # Delay before iterating through loop
+            time.sleep(frame_delay * 2)
+
+        elif args.pattern == "one_dot":
 
             dot_colors = one_dot(number_of_leds, offset)
 
