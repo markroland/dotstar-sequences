@@ -21,6 +21,7 @@ parser.add_argument("pattern", type=str, choices=[
     "one_dot",
     "opposite_dots",
     "solid_white",
+    "rainbow",
     "spectrum",
     "spectrum_fade",
     "spectrum_slide",
@@ -174,6 +175,16 @@ while True:
         elif args.pattern == "halves_gradient":
 
             dot_colors = halves_gradient(number_of_leds, offset)
+
+        elif args.pattern == "rainbow":
+
+            colors = get_rainbow_colors(1)
+
+            for i in range(number_of_leds):
+                rainbow_index = math.floor((i/number_of_leds) * len(colors))
+                dot_colors[i] = colors[rainbow_index]
+
+            render(dot_colors)
 
         elif args.pattern == "spectrum_fade":
 
