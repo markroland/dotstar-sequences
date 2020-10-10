@@ -55,6 +55,10 @@ Continuosly loop through the strip and set each LED to a random RGB value.
 
 Set all LEDs to a single color defined by command-line arguments.
 
+##### dotstar_run.py
+
+Run a show continuously
+
 ##### dotstar_sequences.py
 
 This is a CLI for selecting and running a sequence.
