@@ -101,7 +101,7 @@ spectrum_colors = get_sinebow_colors(spectrum_steps)
     # print(spectrum_colors[loop_step][0], spectrum_colors[loop_step][1], spectrum_colors[loop_step][2], sep="\t")
 
 # Initialize array
-dot_colors = [0] * number_of_leds
+dot_colors = [(0,0,0)] * number_of_leds
 
 # Non-looping "sequences"
 if args.pattern == "off":
