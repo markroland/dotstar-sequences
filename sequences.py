@@ -187,13 +187,12 @@ def spectrum_fade(number_of_leds, offset, spectrum_colors):
     # Fill an array of length "number_of_leds" with zeros
     return [spectrum_colors[offset]] * number_of_leds
 
-# Alternate pixels between 2 colors
+# Slide the spectrum across the strip
 def spectrum_slide(number_of_leds, offset, spectrum_colors):
 
     # Initialization. Fill an array of length "number_of_leds" with zeros
     strip_colors = [0] * number_of_leds
 
-    # Fill dots object with values from "spectrum".
     # "dots" can't be assigned directly because it's a "dostar" object, not an array
     # strip_colors = rotate_list(strip_colors, offset)
     for i in range(number_of_leds):
