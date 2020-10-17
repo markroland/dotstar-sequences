@@ -84,6 +84,8 @@ while True:
 
         if day_of_week == 0:
 
+            # Two colors back and forth
+
             while time_now < time_end:
 
                 # # Fill all to black (off)
@@ -154,6 +156,8 @@ while True:
                 time.sleep(frame_delay)
 
         elif day_of_week == 1:
+
+            # Transition through full spectrum during full run time
 
             # Fade On
             brightness_start = brightness
@@ -302,9 +306,13 @@ while True:
 
             spectrum_colors = get_sinebow_colors(number_of_leds)
 
+            # The frame delay is reduced here because at 1/60 the CPU% on the Pi was 40%
+            # and VNC and SSH connection became slow.
+            frame_delay = 1/20
+
             spectrum_offset = 0
             brightness_offset = 0
-            waves = 12
+            waves = random.randint(2, 16)
 
             dot_colors = [(0, 0, 0)] * number_of_leds
 
@@ -344,6 +352,8 @@ while True:
                 time.sleep(frame_delay)
 
         elif day_of_week == 6:
+
+            # Breathe
 
             breathing_period = 4.0;
             dot_colors = [(255, 255, 255)] * number_of_leds

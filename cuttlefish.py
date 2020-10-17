@@ -59,7 +59,7 @@ while True:
     brightness_offset = (math.pi / 12) * spectrum_offset
     waves = 12
 
-    # Method 1: pules moving in circle
+    # Method 1: pulses moving in circle
     # for i in range(len(dot_colors)):
     #     lightness_coefficient = 0.6 + (0.4 * math.cos((i/(number_of_leds/waves)) * 2 * math.pi + brightness_offset))
     #     dot_colors[i] = darken(dot_colors[i], lightness_coefficient)
