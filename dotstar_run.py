@@ -20,6 +20,23 @@ def render(colors):
     # Render LEDs
     dots.show()
 
+# Add the RGB components of 2 colors
+def colors_add(colors_1, colors_2):
+
+    colors = [(0,0,0)] * number_of_leds
+
+    # Initialize array
+    for i in range(number_of_leds):
+        # Calculate color components
+        r = min(colors_1[i][0] + colors_2[i][0], 255)
+        g = min(colors_1[i][1] + colors_2[i][1], 255)
+        b = min(colors_1[i][2] + colors_2[i][2], 255)
+
+        # Assign RGB to all LEDs
+        colors[i] = (int(r), int(g), int(b))
+
+    return colors
+
 # Set Brightness
 brightness = 0.5
 
@@ -219,7 +236,13 @@ while True:
 
         elif day_of_week == 4:
 
-            # Solid
+            # Crossing bands
+
+            random_hue_1 = random.random()
+            # random_hue_2 = random.random()
+            random_hue_2 = random_hue_1 + 0.5 % 1
+            length = int(number_of_leds * 0.33)
+            length_2 = int(number_of_leds * 0.2)
 
             # Loop
             while time_now < time_end:
@@ -227,13 +250,40 @@ while True:
                 # Update time
                 time_now = time.time()
 
-                dot_colors = [(255, 0, 0)] * number_of_leds
+                # Change offset (every 1/10 of a second for example)
+                # Increase the last number (denominator) makes the animation faster
+                offset = int(((time_now - time_start) * 1000) / 30)
+                offset = offset % number_of_leds
+
+                # Color 1
+                colors_1 = [(4,4,4)] * number_of_leds
+                for i in range(0,length):
+                    intensity = 1 - (i/length)
+                    color_1_hsv = colorsys.hsv_to_rgb(random_hue_1, 1.0, intensity)
+                    colors_1[i] = (int(color_1_hsv[0] * 255), int(color_1_hsv[1] * 255), int(color_1_hsv[2] * 255))
+                colors_1 = rotate_list(colors_1, offset)
+
+                # Color 2 - on "opposite" side of strip going the opposite direction
+
+                offset_2 = int(((time_now - time_start) * 1000) / 40)
+                offset_2 = offset_2 % number_of_leds
+
+                colors_2 = [(4,4,4)] * number_of_leds
+                for i in range(0,length_2):
+                    intensity = 1 - (i/length_2)
+                    color_2_hsv = colorsys.hsv_to_rgb(random_hue_2, 1.0, intensity)
+                    colors_2[i] = (int(color_2_hsv[0] * 255), int(color_2_hsv[1] * 255), int(color_2_hsv[2] * 255))
+                colors_2.reverse()
+                colors_2 = rotate_list(colors_2, -offset_2)
+
+                # Add colors
+                dot_colors = colors_add(colors_1, colors_2)
 
                 # Render the colors
                 render(dot_colors)
 
                 # Delay before iterating through loop
-                time.sleep(60)
+                time.sleep(frame_delay)
 
         elif day_of_week == 5:
 
