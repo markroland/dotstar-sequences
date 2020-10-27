@@ -9,6 +9,7 @@ import time
 import random
 from datetime import datetime
 from sequences import *
+from sequence.sparkle import Sparkle
 
 # Write a List of colors to the Dotstar object and then Show them
 def render(colors):
@@ -353,6 +354,32 @@ while True:
 
         elif day_of_week == 6:
 
+            # Create and setup a Loop module
+            sp = Sparkle(number_of_leds)
+            dot_colors = sp.setup()
+
+            # Initialize timing
+            time_0 = time.time()
+            time_now = time_0
+
+            while time_now < time_end:
+
+                time_now = time.time()
+                time_delta = time_now - time_0
+
+                dot_colors = sp.update(time_delta)
+
+                # Render to LED strip
+                render(dot_colors)
+
+                # Delay before iterating through loop
+                time.sleep(frame_delay)
+
+        else:
+
+            # This should never be reached if there's a case above for every possible
+            # day of the week
+
             # Breathe
 
             breathing_period = 4.0;
@@ -372,25 +399,6 @@ while True:
 
                 # Delay before iterating through loop
                 time.sleep(frame_delay)
-
-        else:
-
-            # This should never be reached if there's a case above for every possible
-            # day of the week, but hey, if it is reached, show solid red
-
-            # Loop
-            while time_now < time_end:
-
-                # Update time
-                time_now = time.time()
-
-                dot_colors = [(255, 0, 0)] * number_of_leds
-
-                # Render the colors
-                render(dot_colors)
-
-                # Delay before iterating through loop
-                time.sleep(60)
 
         # Disable LEDs at end of active time
         dots.deinit()
