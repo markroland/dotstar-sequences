@@ -4,6 +4,20 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ![Demo Animation](demo/cuttlefish.gif)
 
+## Folder Descriptions
+
+##### data
+
+Contains static data to be read in for rendering a sequence
+
+##### demo
+
+Contains project documentation resources
+
+##### sequence
+
+Python modules for specific lighting sequences
+
 ## Script Descriptions
 
 ##### acceleration.py
@@ -70,6 +84,10 @@ This is a test script for cycling through multiple sequences and making a smooth
 ##### dotstar_spectrum.py
 
 Loop through each color in the spectrum as a solid fill.
+
+##### read-file.py
+
+Added a script to read sequence from a file
 
 ##### sequences.py
 
