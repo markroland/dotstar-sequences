@@ -87,7 +87,11 @@ Loop through each color in the spectrum as a solid fill.
 
 ##### read-file.py
 
-Added a script to read sequence from a file
+Read sequence from a CSV text file
+
+##### read-image.py
+
+Read sequence from an image
 
 ##### sequences.py
 
