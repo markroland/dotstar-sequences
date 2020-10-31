@@ -23,7 +23,7 @@ def render(colors):
 brightness = 0.5
 
 # Set time delay between frames
-frame_delay = 1/60;
+frame_delay = 1/20;
 
 # Specify number of pixels
 number_of_leds = 119;
@@ -32,7 +32,7 @@ number_of_leds = 119;
 dots = dotstar.DotStar(board.SCK, board.MOSI, number_of_leds, brightness=brightness, auto_write=False)
 
 # Load image in RGB format and get dimensions:
-file_source = "data/test.png"
+file_source = "/home/pi/Documents/Dotstar/data/fire.png"
 IMG = Image.open(file_source).convert("RGB")
 PIXELS = IMG.load()
 WIDTH = IMG.size[0]
