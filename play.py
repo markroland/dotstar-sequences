@@ -13,6 +13,7 @@ from sequence.cuttlefish import *
 from sequence.fire import *
 from sequence.random import *
 from sequence.sparkle import *
+from sequence.textFileDemo import *
 import atexit
 
 # Shutdown function to turn lights off if script exits
@@ -31,6 +32,7 @@ atexit.register(shutdown)
 # Parse input
 parser = argparse.ArgumentParser()
 parser.add_argument("sequence", type=str, choices=[
+    "csv",
     "cuttlefish",
     "fire",
     "on",
@@ -64,7 +66,11 @@ dots = dotstar.DotStar(board.SCK, board.MOSI, NUMBER_OF_LEDS, brightness=brightn
 
 # Initialize sequence
 Sequence = None
-if args.sequence == "cuttlefish":
+if args.sequence == "csv":
+    frame_delay = 1/2
+    Sequence = TextFileDemo(NUMBER_OF_LEDS)
+    Sequence.setup()
+elif args.sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
     Sequence.setup()
 elif args.sequence == "fire":
