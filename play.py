@@ -10,6 +10,7 @@ import adafruit_dotstar as dotstar
 import time
 import random
 from sequence.cuttlefish import *
+from sequence.fire import *
 from sequence.random import *
 from sequence.sparkle import *
 import atexit
@@ -31,6 +32,7 @@ atexit.register(shutdown)
 parser = argparse.ArgumentParser()
 parser.add_argument("sequence", type=str, choices=[
     "cuttlefish",
+    "fire",
     "on",
     "random",
     "sparkle",
@@ -64,6 +66,10 @@ dots = dotstar.DotStar(board.SCK, board.MOSI, NUMBER_OF_LEDS, brightness=brightn
 Sequence = None
 if args.sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
+    Sequence.setup()
+elif args.sequence == "fire":
+    frame_delay = 1/20
+    Sequence = Fire(NUMBER_OF_LEDS)
     Sequence.setup()
 elif args.sequence == "on":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
