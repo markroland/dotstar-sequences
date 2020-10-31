@@ -10,17 +10,18 @@ import adafruit_dotstar as dotstar
 import time
 import random
 from sequence.cuttlefish import *
+from sequence.random import *
 from sequence.sparkle import *
 import atexit
 
 # Shutdown function to turn lights off if script exits
 def shutdown():
     brightness_start = brightness
-    fade_off_frames = 20
+    fade_off_frames = 60
     for i in range(fade_off_frames):
         dots.brightness = brightness - (brightness_start * (i/fade_off_frames))
         dots.show()
-        time.sleep(frame_delay)
+        time.sleep(1/60)
     dots.deinit()
 
 # Register shutdown function
@@ -31,6 +32,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sequence", type=str, choices=[
     "cuttlefish",
     "on",
+    "random",
     "sparkle",
     "white"
     ],
@@ -62,12 +64,15 @@ dots = dotstar.DotStar(board.SCK, board.MOSI, NUMBER_OF_LEDS, brightness=brightn
 Sequence = None
 if args.sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
-    dot_colors = Sequence.setup()
+    Sequence.setup()
 elif args.sequence == "on":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
+elif args.sequence == "random":
+    Sequence = Random(NUMBER_OF_LEDS)
+    Sequence.setup()
 elif args.sequence == "sparkle":
     Sequence = Sparkle(NUMBER_OF_LEDS)
-    dot_colors = Sequence.setup()
+    Sequence.setup()
 elif args.sequence == "white":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
 
