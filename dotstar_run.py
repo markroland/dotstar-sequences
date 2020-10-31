@@ -365,9 +365,8 @@ while True:
             while time_now < time_end:
 
                 time_now = time.time()
-                time_delta = time_now - time_0
 
-                dot_colors = sp.update(time_delta)
+                dot_colors = sp.update()
 
                 # Render to LED strip
                 render(dot_colors)
