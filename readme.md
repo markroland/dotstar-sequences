@@ -105,3 +105,4 @@ This is a test script for rendering a sequence for a set period of time, for exa
 
 - [Adafruit DotStar LEDs](https://learn.adafruit.com/adafruit-dotstar-leds/overview)
 - [CircuitPython DotStar](https://learn.adafruit.com/circuitpython-essentials/circuitpython-dotstar)
+- [Blinka Test Script](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi)
