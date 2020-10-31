@@ -2,7 +2,13 @@
 
 This project contains scripts that perform lighting effect sequences for Adafruit Dotstar LED strips.
 
-![Demo Animation](demo/cuttlefish.gif)
+## "Cuttlefish" Sequence Video
+
+![Demo Video](demo/cuttlefish-video.gif)
+
+## "Cuttlefish" Sequence Simulation
+
+![Demo Video](demo/cuttlefish.gif)
 
 ## Folder Descriptions
 
@@ -24,22 +30,9 @@ Python modules for specific lighting sequences
 
 Perform a translation of a pattern that accelerates over time.
 
-##### blinkatest.py
-
-This is copy of the Adafruit Blinka Test script used for testing the Python libraries.
-
-##### CircuitPython_DotStar.py
-
-This is a copy of the script in the [Adafuit Learning System Guide](https://github.com/adafruit/Adafruit_Learning_System_Guides).
-
 ##### crossfade.py
 
 Test script for a smooth cross-fade transition between two sequences.
-
-##### cuttlefish.py
-
-The HSV "value" parameter is sinusoidally varied and then animated to move from one side to the other.
-This is mirrored from the middle of the display.
 
 ##### dotstar_basic.py
 
@@ -61,10 +54,6 @@ Turn off the Dotstar strip. This is useful if the strip is left lit by a previou
 
 Render the full color spectrum across the strip and slowly translate their position over time.
 
-##### dotstar_random.py
-
-Continuosly loop through the strip and set each LED to a random RGB value.
-
 ##### dotstar_rgb_input.py
 
 Set all LEDs to a single color defined by command-line arguments.
@@ -85,17 +74,13 @@ This is a test script for cycling through multiple sequences and making a smooth
 
 Loop through each color in the spectrum as a solid fill.
 
-##### read-file.py
-
-Read sequence from a CSV text file
-
-##### read-image.py
-
-Read sequence from an image
-
 ##### sequences.py
 
 This is a function library of color patterns and sequences.
+
+##### simulate.py
+
+Render a Sequence to an animated GIF image.
 
 ##### time-ranged.py
 
