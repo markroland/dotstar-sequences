@@ -34,10 +34,6 @@ Python modules for animated lighting sequences
 
 ## Script Descriptions
 
-##### acceleration.py
-
-Perform a translation of a pattern that accelerates over time.
-
 ##### crossfade.py
 
 Test script for a smooth cross-fade transition between two sequences.
