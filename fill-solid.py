@@ -2,7 +2,7 @@
 #
 # Accept 4 values from the command line to set the LED's RGB values (0-255) and Intensity (0.0-1.0)
 #
-# Example: Run "python3 dotstar_rgb_input.py 255 255 0 0.5" for yellow at half-intensity
+# Example: Run "python3 fill-solid.py 255 255 0 0.5" for yellow at half-intensity
 
 # Import required libraries
 import sys
