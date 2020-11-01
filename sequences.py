@@ -245,19 +245,3 @@ def halves_gradient(number_of_leds, offset):
             strip_colors[0] = (0,255,0)
 
     return strip_colors
-
-# Fade lights on and off, like breathing
-# Human breathing is between 12-25 breathes/minute
-# 15 breathes/minute is 1 breathe every 4 seconds
-# With 129 LEDs a delay of 0.3 seconds (4/129) will accurately represent breathing
-def breathe(number_of_leds, offset):
-
-    # Brightness values must be between 0.0 and 1.0
-    max_brightness = 0.5
-    min_brightness = 0.1
-
-    brightness = 0.5 + (0.5 * math.sin((offset / number_of_leds) * 2 * math.pi))
-
-    brightness = brightness * (max_brightness - min_brightness) + min_brightness
-
-    return max_brightness * brightness

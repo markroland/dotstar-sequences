@@ -14,7 +14,6 @@ from sequences import *
 # Parse input
 parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
-    "breathe",
     "crossing_bands",
     "halves",
     "halves_gradient",
@@ -131,12 +130,7 @@ while True:
 
     # Select pattern
     if args.pattern:
-        if args.pattern == "breathe":
-
-            dot_colors = [(255, 255, 255)] * number_of_leds
-            brightness = breathe(number_of_leds, offset)
-
-        elif args.pattern == "crossing_bands":
+        if args.pattern == "crossing_bands":
 
             # Color 1
             length = int(number_of_leds * 0.25)

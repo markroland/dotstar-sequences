@@ -10,6 +10,7 @@ import adafruit_dotstar as dotstar
 import time
 import random
 from sequence.acceleration import *
+from sequence.breathe import *
 from sequence.clock import *
 from sequence.cuttlefish import *
 from sequence.fire import *
@@ -35,6 +36,7 @@ atexit.register(shutdown)
 parser = argparse.ArgumentParser()
 parser.add_argument("sequence", type=str, choices=[
     "acceleration",
+    "breathe",
     "csv",
     "clock",
     "cuttlefish",
@@ -73,6 +75,10 @@ Sequence = None
 if args.sequence == "acceleration":
     Sequence = Acceleration(NUMBER_OF_LEDS)
     Sequence.setup(6)
+elif args.sequence == "breathe":
+    frame_delay = 1/30
+    Sequence = Breathe(NUMBER_OF_LEDS)
+    Sequence.setup(0.1, 0.5)
 elif args.sequence == "clock":
     frame_delay = 1/10
     Sequence = Clock(NUMBER_OF_LEDS)
