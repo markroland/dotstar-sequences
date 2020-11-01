@@ -8,6 +8,7 @@ import board
 import adafruit_dotstar as dotstar
 import time
 from sequences import *
+from pattern.stripes import *
 
 # Write a List of colors to the Dotstar object and then Show them
 def render(colors):

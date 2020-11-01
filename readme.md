@@ -10,6 +10,8 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ![Demo Video](demo/cuttlefish.gif)
 
+
+
 ## Folder Descriptions
 
 ##### data
@@ -20,9 +22,15 @@ Contains static data to be read in for rendering a sequence
 
 Contains project documentation resources
 
+##### pattern
+
+Python modules for static lighting patterns
+
 ##### sequence
 
-Python modules for specific lighting sequences
+Python modules for animated lighting sequences
+
+
 
 ## Script Descriptions
 

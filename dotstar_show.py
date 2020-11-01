@@ -9,6 +9,7 @@ import board
 import adafruit_dotstar as dotstar
 import time
 from sequences import *
+from pattern.stripes import *
 
 def fade_component(start, finish, step, steps):
     if (start > finish):
