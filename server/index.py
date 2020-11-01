@@ -3,15 +3,16 @@
 # Run as root
 #
 # Run in background:
-#  nohup sudo python3 ./dotstar_flask.py
+#  nohup sudo python3 ./flask.py
 #
-# curl -X POST -d "red=255&green=0&blue=0" http://localhost:5007/color
+# curl -X POST -d "intensity=0.5&red=255&green=0&blue=0" http://localhost:5007/color
 #
-# curl -X POST -d "red=255&green=0&blue=0" http://192.168.0.14:5007/color
+# curl -X POST -d "intensity=0.5&red=255&green=0&blue=0" http://192.168.0.14:5007/color
 #
 
 # Include: Flask web server
-from flask import Flask, request
+from flask import Flask, request, render_template
+# from flask import Flask, request
 
 # Include: Adafruit Dotstar
 import board
@@ -22,6 +23,11 @@ dots = adafruit_dotstar.DotStar(board.SCK, board.MOSI, 120, brightness=0.2)
 
 # Create new Flask app
 app = Flask(__name__)
+
+# Route: Front Controller
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 # Route: Color
 @app.route('/color', methods=['GET', 'POST'])
