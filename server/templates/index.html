@@ -31,6 +31,12 @@
             text-align: center;
         }
 
+        form {
+            width: 240px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
         .device-status {
             position: fixed;
             left: 0;
@@ -48,6 +54,7 @@
             width: 320px;
             margin: 0 auto 1em auto;
             padding: 1em;
+            border-radius: 1em;
         }
 
         div.lights h2 {
@@ -62,6 +69,11 @@
             border-radius: 100%;
             background-color: #CCC;
             border: 1px solid black;
+        }
+
+        #picker {
+            width: 240px;
+            margin: 0 auto 1em auto;
         }
 
         div.patterns {
@@ -99,6 +111,7 @@
         }
 
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
 </head>
 <body>
 
@@ -106,34 +119,41 @@
 
     <div class="lights">
 
-        <h2>Lights</h2>
+        <div id="picker"></div>
+        <script>
+            var colorPicker = new iro.ColorPicker('#picker', {
+              width: 240,
+              color: "#FFFFFF"
+            });
 
-        <div id="color_preview"></div>
+            colorPicker.on('color:change', function(color) {
+              document.querySelector("#red").value = color.rgb.r
+              document.querySelector("#green").value = color.rgb.g
+              document.querySelector("#blue").value = color.rgb.b
+              document.querySelector("#intensity").value = color.value / 100
+            });
+        </script>
 
         <form name="form_color" method="POST" action="/color">
-            <label>Red <input name="red" type="range" min="0" max="255" value="128" class="slider" id="red_slider"></label><span id="red_value">128</span>
-            <br />
-            <label>Green <input name="green" type="range" min="0" max="255" value="128" class="slider" id="green_slider"></label><span id="green_value">128</span>
-            <br />
-            <label>Blue <input name="blue" type="range" min="0" max="255" value="128" class="slider" id="blue_slider"></label><span id="blue_value">128</span>
-            <br />
-            <label>Intensity <input name="intensity" type="range" min="0.0" max="1.0" step="0.1" value="0.5" class="slider" id="intensity_slider"></label><span id="intensity_value">0.5</span>
-            <br />
-            <input type="submit" value="Submit">
+            <input type="hidden" name="red" id="red" value="255" />
+            <input type="hidden" name="green" id="green" value="255" />
+            <input type="hidden" name="blue" id="blue" value="255" />
+            <input type="hidden" name="intensity" id="intensity" value="1.0" />
+            <input type="submit" value="Submit" />
         </form>
 
-        <br />
-
+        <!--
         <form name="form_color" method="POST" action="/status">
             <input type="submit" value="On">
             <input type="submit" value="Off">
         </form>
+        -->
 
     </div>
 
     <div class="device-status">
         <div>Server Status: <span id="status-text">Unknown</span></div>
-        <div>© Mark Roland, 2020. <a href="https://github.com/markroland/dotstar-sequences" target="_blank" rel="noopener noreferrer">View on Github</a></a>
+        <div>© Mark Roland, 2020. <a href="https://github.com/markroland/dotstar-sequences" target="_blank" rel="noopener noreferrer">View on Github</a>. <a href="https://iro.js.org" target="_blank" rel="noopener noreferrer">Uses iro.js</a></div>
     </div>
 
     <script>
@@ -204,43 +224,6 @@
             return serialized.join('&');
 
         };
-
-        // Add event listener to change color when Red slider is changed
-        document.getElementById('red_slider').addEventListener('input', function () {
-            document.getElementById('red_value').innerHTML = this.value;
-            document.getElementById("color_preview").style.backgroundColor = "rgb("
-                + document.getElementById('red_slider').value + ","
-                + document.getElementById('green_slider').value + ","
-                + document.getElementById('blue_slider').value
-                + ")";
-        }, false);
-
-        // Add event listener to change color when Green slider is changed
-        document.getElementById('green_slider').addEventListener('input', function () {
-            document.getElementById('green_value').innerHTML = this.value;
-            document.getElementById("color_preview").style.backgroundColor = "rgb("
-                + document.getElementById('red_slider').value + ","
-                + document.getElementById('green_slider').value + ","
-                + document.getElementById('blue_slider').value
-                + ")";
-        }, false);
-
-        // Add event listener to change color when Blue slider is changed
-        document.getElementById('blue_slider').addEventListener('input', function () {
-            document.getElementById('blue_value').innerHTML = this.value;
-            document.getElementById("color_preview").style.backgroundColor = "rgb("
-                + document.getElementById('red_slider').value + ","
-                + document.getElementById('green_slider').value + ","
-                + document.getElementById('blue_slider').value
-                + ")";
-        }, false);
-
-        // Add event listener to change color when Intensity slider is changed
-        document.getElementById('intensity_slider').addEventListener('input', function () {
-            document.getElementById('intensity_value').innerHTML = this.value;
-            document.getElementById("color_preview").style.opacity = this.value;
-        }, false);
-
         // Send request
         document.querySelector('form[name="form_color"]').addEventListener("submit", function(e){
             e.preventDefault();
