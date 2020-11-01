@@ -42,10 +42,6 @@ Test script for a smooth cross-fade transition between two sequences.
 
 Fill the LEDs with a solid color.
 
-##### dotstar_clock.py
-
-Render a clock face with hour indicators, and hands for the hour, minute and second.
-
 ##### dotstar_fade.py
 
 Fade from one color to another. RGB and HSV fade modes are supported.
@@ -86,9 +82,7 @@ This is a function library of color patterns and sequences.
 
 Render a Sequence to an animated GIF image.
 
-##### time-ranged.py
 
-This is a test script for rendering a sequence for a set period of time, for example from 7am to 10pm.
 
 ## Resources
 

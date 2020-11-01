@@ -10,6 +10,7 @@ import adafruit_dotstar as dotstar
 import time
 import random
 from sequence.acceleration import *
+from sequence.clock import *
 from sequence.cuttlefish import *
 from sequence.fire import *
 from sequence.random import *
@@ -35,6 +36,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sequence", type=str, choices=[
     "acceleration",
     "csv",
+    "clock",
     "cuttlefish",
     "fire",
     "on",
@@ -71,6 +73,10 @@ Sequence = None
 if args.sequence == "acceleration":
     Sequence = Acceleration(NUMBER_OF_LEDS)
     Sequence.setup(6)
+elif args.sequence == "clock":
+    frame_delay = 1/10
+    Sequence = Clock(NUMBER_OF_LEDS)
+    Sequence.setup(75)
 elif args.sequence == "csv":
     frame_delay = 1/2
     Sequence = TextFileDemo(NUMBER_OF_LEDS)
