@@ -9,6 +9,8 @@
 #
 # curl -X POST -d "intensity=0.5&red=255&green=0&blue=0" http://192.168.0.14:5007/color
 #
+# Multiprocessing - https://stackoverflow.com/questions/43478675/raspberry-pi-python-flask-web-control-with-adafruit-dotstar-leds
+#
 
 # Include: Flask web server
 from flask import Flask, request, render_template
