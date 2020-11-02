@@ -38,7 +38,7 @@
         }
 
         .device-status {
-            position: fixed;
+            /*position: fixed;*/
             left: 0;
             bottom: 0;
             width: 100%;
@@ -69,6 +69,19 @@
             border-radius: 100%;
             background-color: #CCC;
             border: 1px solid black;
+        }
+
+        #sequence {
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 1em auto;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        #sequence img {
+            margin-top: -8px;
+            margin-left: -8px;
         }
 
         #picker {
@@ -119,6 +132,10 @@
 
     <div class="lights">
 
+        <div id="sequence">
+            <img src="/static/images/sequences/cuttlefish.gif" />
+        </div>
+
         <div id="picker"></div>
         <script>
             var colorPicker = new iro.ColorPicker('#picker', {
@@ -134,7 +151,7 @@
             });
         </script>
 
-        <form name="form_color" method="POST" action="/color">
+        <form name="solid" method="POST" action="/color">
             <input type="hidden" name="red" id="red" value="255" />
             <input type="hidden" name="green" id="green" value="255" />
             <input type="hidden" name="blue" id="blue" value="255" />
@@ -142,8 +159,18 @@
             <input type="submit" value="Submit" />
         </form>
 
+        <form name="sequence" method="POST" action="/sequence">
+            <select name="sequence">
+                <option value="breathe">Breathe</option>
+                <option value="random">Random</option>
+            </select>
+            <br />
+            <input type="hidden" name="intensity" id="intensity" value="1.0" />
+            <input type="submit" value="Submit" />
+        </form>
+
         <!--
-        <form name="form_color" method="POST" action="/status">
+        <form name="status" method="POST" action="/status">
             <input type="submit" value="On">
             <input type="submit" value="Off">
         </form>
@@ -224,8 +251,32 @@
             return serialized.join('&');
 
         };
+
         // Send request
-        document.querySelector('form[name="form_color"]').addEventListener("submit", function(e){
+        document.querySelector('form[name="solid"]').addEventListener("submit", function(e){
+            e.preventDefault();
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open(this.getAttribute("method"), this.getAttribute("action"));
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // xhr.onload = function() {
+            //     if (xhr.status === 200) {
+            //         console.log(xhr.responseText);
+            //     }
+            // };
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            }
+
+            xhr.send(serialize(this));
+        });
+
+        // Send request
+        document.querySelector('form[name="sequence"]').addEventListener("submit", function(e){
             e.preventDefault();
 
             var xhr = new XMLHttpRequest();

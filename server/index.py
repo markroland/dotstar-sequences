@@ -12,7 +12,8 @@
 
 # Include: Flask web server
 from flask import Flask, request, render_template
-# from flask import Flask, request
+from sequence.breathe import *
+import subprocess
 
 # Include: Adafruit Dotstar
 import board
@@ -24,6 +25,10 @@ dots = adafruit_dotstar.DotStar(board.SCK, board.MOSI, 120, brightness=0.2)
 # Create new Flask app
 app = Flask(__name__)
 
+my_subprocess = None
+
+dotstar_state = "off"
+
 # Route: Front Controller
 @app.route('/')
 def index():
@@ -33,53 +38,87 @@ def index():
 @app.route('/color', methods=['GET', 'POST'])
 def color():
 
-    if request.method == 'POST':
+  global dotstar_state
 
-        # TODO: determine if "off" has been called, then dots has to be re-initi
-        # https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/master/adafruit_dotstar.py
+  if request.method == 'POST':
 
-        red = request.form.get('red')
-        green = request.form.get('green')
-        blue = request.form.get('blue')
-        intensity = request.form.get('intensity')
+    # if type(my_subprocess) is subprocess:
+    if my_subprocess is not None:
+    # poll = my_subprocess.poll()
+    # if poll == None:
+      my_subprocess.terminate()
 
-        dots.brightness=float(intensity)
-        dots.fill((int(red), int(green), int(blue)))
+    # TODO: determine if "off" has been called, then dots has to be re-initi
+    # https://github.com/adafruit/Adafruit_CircuitPython_DotStar/blob/master/adafruit_dotstar.py
 
-        return '''Red: {}, Green: {}, Blue: {}, Intensity: {}'''.format(red, green, blue, intensity)
+    red = request.form.get('red')
+    green = request.form.get('green')
+    blue = request.form.get('blue')
+    intensity = request.form.get('intensity')
 
-    return '''<form method="POST">
-              Red: <input type="text" name="red"><br>
-              Green: <input type="text" name="green"><br>
-              Blue: <input type="text" name="blue"><br>
-              Intensity: <input type="text" name="intensity"><br>
-              <input type="submit" value="Submit"><br>
-          </form>'''
+    dots.brightness=float(intensity)
+    dots.fill((int(red), int(green), int(blue)))
+
+    dotstar_state = "solid"
+
+    return '''Red: {}, Green: {}, Blue: {}, Intensity: {}'''.format(red, green, blue, intensity)
+
+  return '''<form method="POST">
+      Red: <input type="text" name="red"><br>
+      Green: <input type="text" name="green"><br>
+      Blue: <input type="text" name="blue"><br>
+      Intensity: <input type="text" name="intensity"><br>
+      <input type="submit" value="Submit"><br>
+    </form>'''
+
+# Route: Sequence
+@app.route('/sequence', methods=['POST'])
+def sequence_request():
+
+  global my_subprocess
+  global dotstar_state
+
+  if request.method == 'POST':
+
+    response = ""
+
+    # if type(my_subprocess) is subprocess:
+    if my_subprocess is not None:
+    # poll = my_subprocess.poll()
+    # if poll == None:
+      my_subprocess.terminate()
+      response = "terminated"
+
+    allowed_sequences = [
+      "breathe",
+      "random"
+    ]
+
+    requested_sequence = request.form.get('sequence')
+
+    for i in allowed_sequences:
+      if i == requested_sequence:
+        my_subprocess = subprocess.Popen(["python3", "/home/pi/Documents/Dotstar/play.py", requested_sequence])
+        dotstar_state = requested_sequence
+        response = str(my_subprocess.pid)
+
+    return response
 
 # Route: Off
-@app.route('/off', methods=['GET', 'POST'])
+@app.route('/status', methods=['GET', 'POST'])
 def off():
 
-    if request.method == 'POST':
+  global dotstar_state
 
-        # Turn off all pixels
-        dots.deinit();
+  if request.method == 'POST':
 
-        return 'Off'
+    # Turn off all pixels
+    dots.deinit();
 
-    return '''<form method="POST">
-              <select name="power">
-                <option value="on">On</option>
-                <option value="off">Off</option>
-                <input type="submit" value="Submit">
-              </select>
-          </form>'''
+    return 'Off'
 
-# Route: Rainbow
-@app.route('/rainbow')
-def rainbow():
-    return 'TODO: This would initiate the code in dotstar_rainbow.py'
+  return dotstar_state
 
 # Front Controller
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5007)
+  app.run(debug=True, host='0.0.0.0', port=5007)
