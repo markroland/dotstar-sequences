@@ -10,6 +10,7 @@ import adafruit_dotstar as dotstar
 import time
 import random
 from sequences import *
+from pattern.spectrum import *
 
 # Parse input
 parser = argparse.ArgumentParser()
@@ -92,8 +93,8 @@ steps_per_revolution = int(number_of_leds)
 # Load an array(?) of RGB colors for every possible color
 spectrum_steps = int(number_of_leds)
 # spectrum_steps = 255 * 6
-# spectrum_colors = get_spectrum_colors(spectrum_steps)
-spectrum_colors = get_sinebow_colors(spectrum_steps)
+# spectrum_colors = spectrum("linear", spectrum_steps)
+spectrum_colors = spectrum("sinebow", spectrum_steps)
 
 # Debugging
 # for loop_step in range(spectrum_steps):
