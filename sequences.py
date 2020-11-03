@@ -225,23 +225,3 @@ def spectrum_straight_across_with_rotation(number_of_leds, revolutions, offset, 
     strip_colors = rotate_list(strip_colors, revolutions % math.floor(number_of_leds/2))
 
     return strip_colors
-
-# Draw 2 different halves of color, with a gradient in between
-# INCOMPLETE: Logic for color section not right
-def halves_gradient(number_of_leds, offset):
-
-    # Initialization. Fill an array of length "number_of_leds" with zeros
-    strip_colors = [(0,0,0)] * number_of_leds
-
-    # Fill first half of LEDs with different color
-    for i in range(number_of_leds):
-        if (i < int((1/4) * number_of_leds)):
-            strip_colors[i] = (0,0,255)
-        elif (i < int((2/4) * number_of_leds)):
-            strip_colors[i] = (int(255 * ((i-29)/30)), 0, 255)
-        elif (i < int((3/4) * number_of_leds)):
-            strip_colors[i] = (255,0,0)
-        else:
-            strip_colors[0] = (0,255,0)
-
-    return strip_colors

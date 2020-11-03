@@ -16,7 +16,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
     "crossing_bands",
     "halves",
-    "halves_gradient",
     "off",
     "one_dot",
     "opposite_dots",
@@ -171,10 +170,6 @@ while True:
         elif args.pattern == "halves":
 
             dot_colors = halves(number_of_leds, offset)
-
-        elif args.pattern == "halves_gradient":
-
-            dot_colors = halves_gradient(number_of_leds, offset)
 
         elif args.pattern == "rainbow":
 
