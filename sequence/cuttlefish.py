@@ -1,7 +1,7 @@
 import math
 import colorsys
 import time
-from sequences import get_sinebow_colors
+from pattern.spectrum import *
 
 def darken(color, darken):
 
@@ -18,7 +18,7 @@ class Cuttlefish:
 
     def __init__(self, number_of_leds):
         self.number_of_leds = number_of_leds
-        self.spectrum_colors = get_sinebow_colors(self.number_of_leds)
+        self.spectrum_colors = spectrum("sinebow", self.number_of_leds)
         self.spectrum_offset = 0
         self.brightness_offset = 0
         self.time_0 = 0

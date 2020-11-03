@@ -6,10 +6,12 @@
 import board
 import adafruit_dotstar as dotstar
 import time
+import math
 import random
 from datetime import datetime
 from sequences import *
 from sequence.sparkle import Sparkle
+from pattern.spectrum import *
 
 # Write a List of colors to the Dotstar object and then Show them
 def render(colors):
@@ -63,7 +65,7 @@ start_hour = 7
 end_hour = 22
 
 # Load color sequence
-spectrum_colors = get_sinebow_colors()
+spectrum_colors = spectrum("sinebow")
 
 # Loop forever
 while True:
@@ -199,7 +201,7 @@ while True:
         elif day_of_week == 2:
 
             # Reload the spectrum colors - one per LED
-            spectrum_colors = get_sinebow_colors(number_of_leds)
+            spectrum_colors = spectrum("sinebow", number_of_leds)
 
             # Initialize colors
             dot_colors = [(0, 0, 0)] * number_of_leds
@@ -227,7 +229,7 @@ while True:
         elif day_of_week == 3:
 
             # Reload the spectrum colors - one per LED
-            spectrum_colors = get_sinebow_colors(number_of_leds)
+            spectrum_colors = spectrum("sinebow", number_of_leds)
 
             # Initialize colors
             dot_colors = [(0, 0, 0)] * number_of_leds
@@ -305,7 +307,7 @@ while True:
 
             # Cuttlefish
 
-            spectrum_colors = get_sinebow_colors(number_of_leds)
+            spectrum_colors = spectrum("sinebow", number_of_leds)
 
             # The frame delay is reduced here because at 1/60 the CPU% on the Pi was 40%
             # and VNC and SSH connection became slow.

@@ -9,6 +9,7 @@ from sequences import *
 import random
 import time
 import colorsys
+# from pattern.spectrum import *
 
 def random_color():
     return random.randrange(0, 255)
@@ -42,10 +43,10 @@ colors_start = [(0,0,255)] * number_of_leds
 # for i in range(number_of_leds):
 #     colors_start[i] = ((random_color(), random_color(), random_color()))
 #     # print(colors_start[i][0], colors_start[i][1], colors_start[i][2], sep="\t")
-# colors_start = get_sinebow_colors(number_of_leds)
+# colors_start = spectrum("sinebow", number_of_leds)
 
 # Ending colors
-# colors_end = get_spectrum_colors(number_of_leds)
+# colors_end = spectrum("linear", number_of_leds)
 colors_end = [(255,255,0)] * number_of_leds
 
 # Set brightness

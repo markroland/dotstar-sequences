@@ -10,6 +10,7 @@ import adafruit_dotstar as dotstar
 import time
 from sequences import *
 from pattern.stripes import *
+from pattern.spectrum import *
 
 def fade_component(start, finish, step, steps):
     if (start > finish):
@@ -113,7 +114,7 @@ revolutions = 0;
 steps_per_revolution = int(number_of_leds)
 
 # Load a list of RGB colors for every possible color
-spectrum_colors = get_sinebow_colors(number_of_leds)
+spectrum_colors = spectrum("sinebow", number_of_leds)
 
 # Debugging
 # for loop_step in range(spectrum_steps):
