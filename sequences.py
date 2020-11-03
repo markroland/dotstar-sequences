@@ -138,18 +138,6 @@ def opposite_dots(number_of_leds, offset):
 
     return strip_colors
 
-# Draw 2 different halvs of color (non rotating)
-def halves(number_of_leds, offset):
-
-    # Fill all to black (off)
-    strip_colors = [(255, 0, 0)] * number_of_leds
-
-    # Fill first half of LEDs with different color
-    for i in range(int(number_of_leds/2)):
-        strip_colors[i] = (0,0,255)
-
-    return strip_colors
-
 # Alternate pixels between 2 colors
 def stripes_spin(color_1, color_2, number_of_leds, offset, num_stripes = 6):
 

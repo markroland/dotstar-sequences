@@ -15,7 +15,6 @@ from sequences import *
 parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
     "crossing_bands",
-    "halves",
     "off",
     "one_dot",
     "opposite_dots",
@@ -166,10 +165,6 @@ while True:
         elif args.pattern == "opposite_dots":
 
             dot_colors = opposite_dots(number_of_leds, offset)
-
-        elif args.pattern == "halves":
-
-            dot_colors = halves(number_of_leds, offset)
 
         elif args.pattern == "rainbow":
 

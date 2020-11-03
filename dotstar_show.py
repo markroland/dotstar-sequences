@@ -177,7 +177,7 @@ while (time_now - time_1) < duration:
 
     time_now = time.time()
 
-    new_dot_colors = halves(number_of_leds, offset)
+    new_dot_colors = [(0, 0, 128)] * number_of_leds
 
     if new_sequence == 1:
         prev_dot_colors = dot_colors
