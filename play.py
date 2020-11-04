@@ -13,6 +13,7 @@ from sequence.acceleration import *
 from sequence.breathe import *
 from sequence.clock import *
 from sequence.cuttlefish import *
+from sequence.fade import *
 from sequence.fire import *
 from sequence.random import *
 from sequence.sparkle import *
@@ -40,6 +41,7 @@ parser.add_argument("sequence", type=str, choices=[
     "csv",
     "clock",
     "cuttlefish",
+    "fade",
     "fire",
     "on",
     "random",
@@ -90,6 +92,11 @@ elif args.sequence == "csv":
 elif args.sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
     Sequence.setup()
+elif args.sequence == "fade":
+    Sequence = Fade(NUMBER_OF_LEDS)
+    colors_start = [(0,0,255)] * NUMBER_OF_LEDS
+    colors_end = [(255,255,0)] * NUMBER_OF_LEDS
+    Sequence.setup("hsv", 10, colors_start, colors_end)
 elif args.sequence == "fire":
     frame_delay = 1/20
     Sequence = Fire(NUMBER_OF_LEDS)
