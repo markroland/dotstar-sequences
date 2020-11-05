@@ -11,6 +11,7 @@ import time
 import random
 from sequences import *
 from pattern.spectrum import *
+from pattern.rainbow import *
 
 # Parse input
 parser = argparse.ArgumentParser()
@@ -169,7 +170,7 @@ while True:
 
         elif args.pattern == "rainbow":
 
-            colors = get_rainbow_colors(1)
+            colors = rainbow(1)
 
             for i in range(number_of_leds):
                 rainbow_index = math.floor((i/number_of_leds) * len(colors))
