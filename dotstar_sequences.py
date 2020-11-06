@@ -25,7 +25,6 @@ parser.add_argument("pattern", type=str, choices=[
     "spectrum_slide",
     "spectrum_straight_across",
     "spectrum_straight_across_with_rotation",
-    "stripes_spin",
     "sweep"
     ],
     help="Specify the pattern to display"

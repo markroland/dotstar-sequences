@@ -4,23 +4,6 @@ import math
 def rotate_list(my_list, position):
     return my_list[position:] + my_list[:position]
 
-# Alternate pixels between 2 colors
-def stripes_spin(color_1, color_2, number_of_leds, offset, num_stripes = 6):
-
-    # Initialization. Fill an array of length "number_of_leds" with zeros
-    strip_colors = [(0, 0, 0)] * number_of_leds
-
-    # fill "strip_colors" with calculated RGB tuples
-    for i in range(number_of_leds):
-        strip_colors[i] = color_1
-        if (math.floor(i/(number_of_leds/num_stripes)) % 2):
-            strip_colors[i] = color_2
-
-    # Rotate colors
-    strip_colors = rotate_list(strip_colors, offset)
-
-    return strip_colors
-
 # Fade through all the colors of the spectrum
 def spectrum_fade(number_of_leds, offset, spectrum_colors):
 

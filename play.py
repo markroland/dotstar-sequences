@@ -18,6 +18,7 @@ from sequence.fade import *
 from sequence.fire import *
 from sequence.random import *
 from sequence.sparkle import *
+from sequence.stripes import *
 from sequence.textFileDemo import *
 import atexit
 
@@ -48,6 +49,7 @@ parser.add_argument("sequence", type=str, choices=[
     "points",
     "random",
     "sparkle",
+    "stripes",
     "white"
     ],
     help="Specify the sequence to play"
@@ -115,6 +117,9 @@ elif args.sequence == "random":
 elif args.sequence == "sparkle":
     Sequence = Sparkle(NUMBER_OF_LEDS)
     Sequence.setup()
+elif args.sequence == "stripes":
+    Sequence = Stripes(NUMBER_OF_LEDS)
+    Sequence.setup(-1, 4)
 elif args.sequence == "white":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
 
