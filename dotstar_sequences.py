@@ -16,7 +16,6 @@ from pattern.rainbow import *
 # Parse input
 parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
-    "crossing_bands",
     "off",
     "solid_white",
     "rainbow",
@@ -127,37 +126,7 @@ while True:
 
     # Select pattern
     if args.pattern:
-        if args.pattern == "crossing_bands":
-
-            # Color 1
-            length = int(number_of_leds * 0.25)
-            colors_1 = [(0, 0, 0)] * number_of_leds
-            for i in range(0,length):
-                intensity = round(255 * (length - i) / length)
-                colors_1[i] = (0,0,intensity)
-            colors_1 = rotate_list(colors_1, offset)
-
-            # Color 2 - on "opposite" side of strip going the opposite direction
-            length = int(number_of_leds * 0.25)
-            colors_2 = [(0, 0, 0)] * number_of_leds
-            for i in range(0,length):
-                intensity = round(255 * (length - i) / length)
-                colors_2[i] = (intensity,0,intensity)
-            colors_2.reverse()
-            colors_2 = rotate_list(colors_2, -offset)
-
-            # Add colors
-            dot_colors = colors_add(colors_1, colors_2)
-
-            render(dot_colors)
-
-            # Increment offset
-            offset = (offset + 1) % steps_per_revolution
-
-            # Delay before iterating through loop
-            time.sleep(frame_delay * 2)
-
-        elif args.pattern == "rainbow":
+        if args.pattern == "rainbow":
 
             colors = rainbow(1)
 

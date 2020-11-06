@@ -12,6 +12,7 @@ import random
 from sequence.acceleration import *
 from sequence.breathe import *
 from sequence.clock import *
+from sequence.crossing import *
 from sequence.cuttlefish import *
 from sequence.points import *
 from sequence.fade import *
@@ -42,6 +43,7 @@ parser.add_argument("sequence", type=str, choices=[
     "breathe",
     "csv",
     "clock",
+    "crossing",
     "cuttlefish",
     "fade",
     "fire",
@@ -89,6 +91,15 @@ elif args.sequence == "clock":
     frame_delay = 1/10
     Sequence = Clock(NUMBER_OF_LEDS)
     Sequence.setup(75)
+elif args.sequence == "crossing":
+    # frame_delay = 1/10
+    Sequence = Crossing(NUMBER_OF_LEDS)
+    hue_1 = random.random()
+    # random_hue_2 = random.random()
+    hue_2 = hue_1 + 0.5 % 1
+    length_1 = int(NUMBER_OF_LEDS * 0.33)
+    length_2 = int(NUMBER_OF_LEDS * 0.2)
+    Sequence.setup(hue_1, hue_2, length_1, length_2)
 elif args.sequence == "csv":
     frame_delay = 1/2
     Sequence = TextFileDemo(NUMBER_OF_LEDS)

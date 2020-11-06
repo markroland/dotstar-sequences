@@ -10,6 +10,7 @@ import math
 import random
 from datetime import datetime
 from sequences import *
+from sequence.crossing import Crossing
 from sequence.sparkle import Sparkle
 from pattern.spectrum import *
 
@@ -256,48 +257,25 @@ while True:
 
             # Crossing bands
 
-            random_hue_1 = random.random()
+            Sequence = Crossing(number_of_leds)
+            hue_1 = random.random()
             # random_hue_2 = random.random()
-            random_hue_2 = random_hue_1 + 0.5 % 1
-            length = int(number_of_leds * 0.33)
+            hue_2 = hue_1 + 0.5 % 1
+            length_1 = int(number_of_leds * 0.33)
             length_2 = int(number_of_leds * 0.2)
+            Sequence.setup(hue_1, hue_2, length_1, length_2)
 
-            # Loop
+            # Initialize timing
+            time_0 = time.time()
+            time_now = time_0
+
             while time_now < time_end:
 
-                # Update time
                 time_now = time.time()
 
-                # Change offset (every 1/10 of a second for example)
-                # Increase the last number (denominator) makes the animation faster
-                offset = int(((time_now - time_start) * 1000) / 30)
-                offset = offset % number_of_leds
+                dot_colors = Sequence.update()
 
-                # Color 1
-                colors_1 = [(4,4,4)] * number_of_leds
-                for i in range(0,length):
-                    intensity = 1 - (i/length)
-                    color_1_hsv = colorsys.hsv_to_rgb(random_hue_1, 1.0, intensity)
-                    colors_1[i] = (int(color_1_hsv[0] * 255), int(color_1_hsv[1] * 255), int(color_1_hsv[2] * 255))
-                colors_1 = rotate_list(colors_1, offset)
-
-                # Color 2 - on "opposite" side of strip going the opposite direction
-
-                offset_2 = int(((time_now - time_start) * 1000) / 40)
-                offset_2 = offset_2 % number_of_leds
-
-                colors_2 = [(4,4,4)] * number_of_leds
-                for i in range(0,length_2):
-                    intensity = 1 - (i/length_2)
-                    color_2_hsv = colorsys.hsv_to_rgb(random_hue_2, 1.0, intensity)
-                    colors_2[i] = (int(color_2_hsv[0] * 255), int(color_2_hsv[1] * 255), int(color_2_hsv[2] * 255))
-                colors_2.reverse()
-                colors_2 = rotate_list(colors_2, -offset_2)
-
-                # Add colors
-                dot_colors = colors_add(colors_1, colors_2)
-
-                # Render the colors
+                # Render to LED strip
                 render(dot_colors)
 
                 # Delay before iterating through loop
