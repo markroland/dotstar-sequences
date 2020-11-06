@@ -23,19 +23,6 @@ from sequence.stripes import *
 from sequence.textFileDemo import *
 import atexit
 
-# Shutdown function to turn lights off if script exits
-def shutdown():
-    brightness_start = brightness
-    fade_off_frames = 60
-    for i in range(fade_off_frames):
-        dots.brightness = brightness - (brightness_start * (i/fade_off_frames))
-        dots.show()
-        time.sleep(1/60)
-    dots.deinit()
-
-# Register shutdown function
-atexit.register(shutdown)
-
 # Parse input
 parser = argparse.ArgumentParser()
 parser.add_argument("sequence", type=str, choices=[
@@ -47,6 +34,7 @@ parser.add_argument("sequence", type=str, choices=[
     "cuttlefish",
     "fade",
     "fire",
+    "off",
     "on",
     "points",
     "random",
@@ -116,6 +104,10 @@ elif args.sequence == "fire":
     frame_delay = 1/20
     Sequence = Fire(NUMBER_OF_LEDS)
     Sequence.setup()
+elif args.sequence == "off":
+    dots.fill((0, 0, 0))
+    dots.deinit();
+    quit();
 elif args.sequence == "on":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
 elif args.sequence == "points":
@@ -133,6 +125,21 @@ elif args.sequence == "stripes":
     Sequence.setup(-1, 4)
 elif args.sequence == "white":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
+
+
+# Shutdown function to turn lights off if script exits
+def shutdown():
+    brightness_start = brightness
+    fade_off_frames = 60
+    for i in range(fade_off_frames):
+        dots.brightness = brightness - (brightness_start * (i/fade_off_frames))
+        dots.show()
+        time.sleep(1/60)
+    dots.deinit()
+
+# Register shutdown function
+atexit.register(shutdown)
+
 
 # Loop forever updating the sequence
 while True:
