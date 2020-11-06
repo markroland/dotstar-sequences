@@ -13,6 +13,7 @@ from sequence.acceleration import *
 from sequence.breathe import *
 from sequence.clock import *
 from sequence.cuttlefish import *
+from sequence.points import *
 from sequence.fade import *
 from sequence.fire import *
 from sequence.random import *
@@ -44,6 +45,7 @@ parser.add_argument("sequence", type=str, choices=[
     "fade",
     "fire",
     "on",
+    "points",
     "random",
     "sparkle",
     "white"
@@ -103,6 +105,10 @@ elif args.sequence == "fire":
     Sequence.setup()
 elif args.sequence == "on":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
+elif args.sequence == "points":
+    frame_delay = 1/20
+    Sequence = Points(NUMBER_OF_LEDS)
+    Sequence.setup(-1, 6, 5, (255, 0, 0))
 elif args.sequence == "random":
     Sequence = Random(NUMBER_OF_LEDS)
     Sequence.setup()

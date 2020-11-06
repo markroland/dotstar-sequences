@@ -4,32 +4,6 @@ import math
 def rotate_list(my_list, position):
     return my_list[position:] + my_list[:position]
 
-# Draw one pixel that moves across the LED strip
-def one_dot(number_of_leds, offset):
-
-    # Initialization. Fill an array of length "number_of_leds" with zeros
-    strip_colors = [(2,2,2)] * number_of_leds
-
-    # Turn on selected LED pixel
-    strip_colors[offset] = (255,255,255)
-
-    return strip_colors
-
-# Draw two pixels that moves across the LED strip (circle) opposite of each other
-def opposite_dots(number_of_leds, offset):
-
-    # Fill all to black (off)
-    strip_colors = [(0, 0, 0)] * number_of_leds
-
-    # Turn on selected LED pixel
-    strip_colors[offset] = (255,255,255)
-
-    # Turn on LED opposite of that one
-    opposite = (offset + int(number_of_leds/2)) % number_of_leds
-    strip_colors[opposite] = (255,255,255)
-
-    return strip_colors
-
 # Alternate pixels between 2 colors
 def stripes_spin(color_1, color_2, number_of_leds, offset, num_stripes = 6):
 

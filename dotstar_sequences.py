@@ -18,8 +18,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
     "crossing_bands",
     "off",
-    "one_dot",
-    "opposite_dots",
     "solid_white",
     "rainbow",
     "spectrum",
@@ -160,14 +158,6 @@ while True:
             # Delay before iterating through loop
             time.sleep(frame_delay * 2)
 
-        elif args.pattern == "one_dot":
-
-            dot_colors = one_dot(number_of_leds, offset)
-
-        elif args.pattern == "opposite_dots":
-
-            dot_colors = opposite_dots(number_of_leds, offset)
-
         elif args.pattern == "rainbow":
 
             colors = rainbow(1)
@@ -194,10 +184,6 @@ while True:
         elif args.pattern == "spectrum_straight_across_with_rotation":
 
             dot_colors = spectrum_straight_across_with_rotation(number_of_leds, revolutions, offset, spectrum_colors)
-
-        elif args.pattern == "stripes_spin":
-
-            dot_colors = stripes_spin((200, 0, 0), (0,0,255), number_of_leds, offset)
 
         elif args.pattern == "sweep":
 
