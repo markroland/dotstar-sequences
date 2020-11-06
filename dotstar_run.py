@@ -62,7 +62,7 @@ frame_delay = 1/60;
 number_of_leds = 119;
 
 # Set start and end hours of the day (i.e. 7am - 10pm)
-start_hour = 7
+start_hour = 6
 end_hour = 22
 
 # Load color sequence
