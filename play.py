@@ -45,6 +45,7 @@ parser.add_argument("sequence", type=str, choices=[
     "sparkle",
     "spectrum-fade",
     "spectrum-slide",
+    "spectrum-wipe",
     "stripes",
     "white",
     "wipe"
@@ -139,6 +140,9 @@ elif args.sequence == "spectrum-fade":
 elif args.sequence == "spectrum-slide":
     Sequence = Spectrum(NUMBER_OF_LEDS)
     Sequence.setup("sinebow", "slide", 3)
+elif args.sequence == "spectrum-wipe":
+    Sequence = Spectrum(NUMBER_OF_LEDS)
+    Sequence.setup("sinebow", "wipe", 3)
 elif args.sequence == "stripes":
     Sequence = Stripes(NUMBER_OF_LEDS)
     Sequence.setup(-1, 4)
