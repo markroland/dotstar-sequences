@@ -23,6 +23,7 @@ from sequence.sparkle import *
 from sequence.spectrum import *
 from sequence.stripes import *
 from sequence.textFileDemo import *
+from sequence.wipe import *
 import atexit
 
 # Parse input
@@ -44,7 +45,8 @@ parser.add_argument("sequence", type=str, choices=[
     "sparkle",
     "spectrum-fade",
     "stripes",
-    "white"
+    "white",
+    "wipe"
     ],
     help="Specify the sequence to play"
 )
@@ -138,7 +140,12 @@ elif args.sequence == "stripes":
     Sequence.setup(-1, 4)
 elif args.sequence == "white":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
-
+elif args.sequence == "wipe":
+    Sequence = Wipe(NUMBER_OF_LEDS)
+    hue_1 = random.random()
+    # random_hue_2 = random.random()
+    hue_2 = hue_1 + 0.5 % 1
+    Sequence.setup(hue_1, hue_2)
 
 # Shutdown function to turn lights off if script exits
 def shutdown():
