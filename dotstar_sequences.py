@@ -11,14 +11,12 @@ import time
 import random
 from sequences import *
 from pattern.spectrum import *
-from pattern.rainbow import *
 
 # Parse input
 parser = argparse.ArgumentParser()
 parser.add_argument("pattern", type=str, choices=[
     "off",
     "solid_white",
-    "rainbow",
     "spectrum_slide",
     "spectrum_straight_across",
     "spectrum_straight_across_with_rotation",
@@ -124,17 +122,7 @@ while True:
 
     # Select pattern
     if args.pattern:
-        if args.pattern == "rainbow":
-
-            colors = rainbow(1)
-
-            for i in range(number_of_leds):
-                rainbow_index = math.floor((i/number_of_leds) * len(colors))
-                dot_colors[i] = colors[rainbow_index]
-
-            render(dot_colors)
-
-        elif args.pattern == "spectrum_slide":
+        if args.pattern == "spectrum_slide":
 
             dot_colors = spectrum_slide(number_of_leds, offset, spectrum_colors)
 

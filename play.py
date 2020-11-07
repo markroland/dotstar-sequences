@@ -9,6 +9,7 @@ import board
 import adafruit_dotstar as dotstar
 import time
 import random
+from pattern.rainbow import *
 from sequence.acceleration import *
 from sequence.breathe import *
 from sequence.clock import *
@@ -38,6 +39,7 @@ parser.add_argument("sequence", type=str, choices=[
     "off",
     "on",
     "points",
+    "rainbow",
     "random",
     "sparkle",
     "spectrum-fade",
@@ -116,6 +118,12 @@ elif args.sequence == "points":
     frame_delay = 1/20
     Sequence = Points(NUMBER_OF_LEDS)
     Sequence.setup(-1, 6, 5, (255, 0, 0))
+elif args.sequence == "rainbow":
+    dot_colors = [(0,0,0)] * NUMBER_OF_LEDS
+    colors = rainbow(1)
+    for i in range(NUMBER_OF_LEDS):
+        rainbow_index = math.floor((i/NUMBER_OF_LEDS) * len(colors))
+        dot_colors[i] = colors[rainbow_index]
 elif args.sequence == "random":
     Sequence = Random(NUMBER_OF_LEDS)
     Sequence.setup()
