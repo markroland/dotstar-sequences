@@ -4,20 +4,6 @@ import math
 def rotate_list(my_list, position):
     return my_list[position:] + my_list[:position]
 
-# Slide the spectrum across the strip
-def spectrum_slide(number_of_leds, offset, spectrum_colors):
-
-    # Initialization. Fill an array of length "number_of_leds" with zeros
-    strip_colors = [0] * number_of_leds
-
-    # "dots" can't be assigned directly because it's a "dostar" object, not an array
-    # strip_colors = rotate_list(strip_colors, offset)
-    for i in range(number_of_leds):
-        index = (offset + i) % len(spectrum_colors)
-        strip_colors[i] = spectrum_colors[index]
-
-    return strip_colors
-
 # Slide a color spectrum straight across the table
 def spectrum_straight_across(number_of_leds, offset, spectrum_colors):
 

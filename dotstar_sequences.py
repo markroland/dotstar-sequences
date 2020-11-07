@@ -121,11 +121,7 @@ while True:
 
     # Select pattern
     if args.pattern:
-        if args.pattern == "spectrum_slide":
-
-            dot_colors = spectrum_slide(number_of_leds, offset, spectrum_colors)
-
-        elif args.pattern == "spectrum_straight_across":
+        if args.pattern == "spectrum_straight_across":
 
             dot_colors = spectrum_straight_across(number_of_leds, offset, spectrum_colors)
 

@@ -44,6 +44,7 @@ parser.add_argument("sequence", type=str, choices=[
     "random",
     "sparkle",
     "spectrum-fade",
+    "spectrum-slide",
     "stripes",
     "white",
     "wipe"
@@ -135,6 +136,9 @@ elif args.sequence == "sparkle":
 elif args.sequence == "spectrum-fade":
     Sequence = Spectrum(NUMBER_OF_LEDS)
     Sequence.setup("sinebow", "fade", 60)
+elif args.sequence == "spectrum-slide":
+    Sequence = Spectrum(NUMBER_OF_LEDS)
+    Sequence.setup("sinebow", "slide", 3)
 elif args.sequence == "stripes":
     Sequence = Stripes(NUMBER_OF_LEDS)
     Sequence.setup(-1, 4)
@@ -145,7 +149,7 @@ elif args.sequence == "wipe":
     hue_1 = random.random()
     # random_hue_2 = random.random()
     hue_2 = hue_1 + 0.5 % 1
-    Sequence.setup(hue_1, hue_2)
+    Sequence.setup(6, hue_1, hue_2, -45)
 
 # Shutdown function to turn lights off if script exits
 def shutdown():
