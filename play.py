@@ -26,9 +26,7 @@ from sequence.textFileDemo import *
 from sequence.wipe import *
 import atexit
 
-# Parse input
-parser = argparse.ArgumentParser()
-parser.add_argument("sequence", type=str, choices=[
+supported_sequences = [
     "acceleration",
     "breathe",
     "csv",
@@ -49,45 +47,63 @@ parser.add_argument("sequence", type=str, choices=[
     "stripes",
     "white",
     "wipe"
-    ],
+]
+
+# Parse input
+parser = argparse.ArgumentParser()
+parser.add_argument("sequence", nargs='?', type=str, choices=supported_sequences,
     help="Specify the sequence to play"
 )
 parser.add_argument("-b", "--brightness", type=float, help="Set the LED brigtness, 0.0 to 1.0")
 parser.add_argument("-d", "--delay", type=float, help="Set the frame delay in seconds")
 args = parser.parse_args()
 
-# Set Brightness
-brightness = 0.5
-if args.brightness:
-    if float(args.brightness) > 0.0 and float(args.brightness) <= 1.0:
-        brightness = args.brightness
-
-# Set time delay between frames
-frame_delay = 1/60;
-if args.delay:
-    if float(args.delay) > 0.0 and float(args.delay) <= 1.0:
-        frame_delay = args.delay
-
-# Specify number of pixels
+# Set defaults prior to input
 NUMBER_OF_LEDS = 119;
+brightness = 0.5
+frame_delay = 1/60;
 
-# Option 1: Using a DotStar Digital LED Strip with LEDs connected to hardware SPI
+if args.sequence is None:
+
+    print('Please select a sequence number')
+    for i in range(len(supported_sequences)):
+        print((i+1), ") ", supported_sequences[i], sep='')
+
+    x = input('Selection: ')
+
+    selected_sequence = supported_sequences[int(x) - 1]
+
+else:
+
+    selected_sequence = args.sequence
+
+    # Set Brightness
+    if args.brightness:
+        if float(args.brightness) > 0.0 and float(args.brightness) <= 1.0:
+            brightness = args.brightness
+
+    # Set time delay between frames
+    if args.delay:
+        if float(args.delay) > 0.0 and float(args.delay) <= 1.0:
+            frame_delay = args.delay
+
+# Using a DotStar Digital LED Strip with LEDs connected to hardware SPI
 dots = dotstar.DotStar(board.SCK, board.MOSI, NUMBER_OF_LEDS, brightness=brightness, auto_write=False)
 
 # Initialize sequence
 Sequence = None
-if args.sequence == "acceleration":
+if selected_sequence == "acceleration":
     Sequence = Acceleration(NUMBER_OF_LEDS)
     Sequence.setup(6)
-elif args.sequence == "breathe":
+elif selected_sequence == "breathe":
     frame_delay = 1/30
     Sequence = Breathe(NUMBER_OF_LEDS)
     Sequence.setup(0.1, 0.5)
-elif args.sequence == "clock":
+elif selected_sequence == "clock":
     frame_delay = 1/10
     Sequence = Clock(NUMBER_OF_LEDS)
     Sequence.setup(75)
-elif args.sequence == "crossing":
+elif selected_sequence == "crossing":
     # frame_delay = 1/10
     Sequence = Crossing(NUMBER_OF_LEDS)
     hue_1 = random.random()
@@ -96,59 +112,59 @@ elif args.sequence == "crossing":
     length_1 = int(NUMBER_OF_LEDS * 0.33)
     length_2 = int(NUMBER_OF_LEDS * 0.2)
     Sequence.setup(hue_1, hue_2, length_1, length_2)
-elif args.sequence == "csv":
+elif selected_sequence == "csv":
     frame_delay = 1/2
     Sequence = TextFileDemo(NUMBER_OF_LEDS)
     Sequence.setup()
-elif args.sequence == "cuttlefish":
+elif selected_sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
     Sequence.setup()
-elif args.sequence == "fade":
+elif selected_sequence == "fade":
     Sequence = Fade(NUMBER_OF_LEDS)
     colors_start = [(0,0,255)] * NUMBER_OF_LEDS
     colors_end = [(255,255,0)] * NUMBER_OF_LEDS
     Sequence.setup("hsv", 10, colors_start, colors_end)
-elif args.sequence == "fire":
+elif selected_sequence == "fire":
     frame_delay = 1/20
     Sequence = Fire(NUMBER_OF_LEDS)
     Sequence.setup()
-elif args.sequence == "off":
+elif selected_sequence == "off":
     dots.fill((0, 0, 0))
     dots.deinit();
     quit();
-elif args.sequence == "on":
+elif selected_sequence == "on":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
-elif args.sequence == "points":
+elif selected_sequence == "points":
     frame_delay = 1/20
     Sequence = Points(NUMBER_OF_LEDS)
     Sequence.setup(-1, 6, 5, (255, 0, 0))
-elif args.sequence == "rainbow":
+elif selected_sequence == "rainbow":
     dot_colors = [(0,0,0)] * NUMBER_OF_LEDS
     colors = rainbow(1)
     for i in range(NUMBER_OF_LEDS):
         rainbow_index = math.floor((i/NUMBER_OF_LEDS) * len(colors))
         dot_colors[i] = colors[rainbow_index]
-elif args.sequence == "random":
+elif selected_sequence == "random":
     Sequence = Random(NUMBER_OF_LEDS)
     Sequence.setup()
-elif args.sequence == "sparkle":
+elif selected_sequence == "sparkle":
     Sequence = Sparkle(NUMBER_OF_LEDS)
     Sequence.setup()
-elif args.sequence == "spectrum-fade":
+elif selected_sequence == "spectrum-fade":
     Sequence = Spectrum(NUMBER_OF_LEDS)
     Sequence.setup("sinebow", "fade", 60)
-elif args.sequence == "spectrum-slide":
+elif selected_sequence == "spectrum-slide":
     Sequence = Spectrum(NUMBER_OF_LEDS)
     Sequence.setup("sinebow", "slide", 3)
-elif args.sequence == "spectrum-wipe":
+elif selected_sequence == "spectrum-wipe":
     Sequence = Spectrum(NUMBER_OF_LEDS)
     Sequence.setup("sinebow", "wipe", 3)
-elif args.sequence == "stripes":
+elif selected_sequence == "stripes":
     Sequence = Stripes(NUMBER_OF_LEDS)
     Sequence.setup(-1, 4)
-elif args.sequence == "white":
+elif selected_sequence == "white":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
-elif args.sequence == "wipe":
+elif selected_sequence == "wipe":
     Sequence = Wipe(NUMBER_OF_LEDS)
     hue_1 = random.random()
     # random_hue_2 = random.random()
@@ -167,7 +183,6 @@ def shutdown():
 
 # Register shutdown function
 atexit.register(shutdown)
-
 
 # Loop forever updating the sequence
 while True:

@@ -38,7 +38,6 @@ class Acceleration:
         if self.time < 10:
             acceleration = 10
             self.velocity = acceleration * self.time
-            print(self.velocity)
         elif self.time < 20:
             segment_time = self.time - 10
             self.velocity_0 = self.velocity
