@@ -4,12 +4,6 @@ import math
 def rotate_list(my_list, position):
     return my_list[position:] + my_list[:position]
 
-# Fade through all the colors of the spectrum
-def spectrum_fade(number_of_leds, offset, spectrum_colors):
-
-    # Fill an array of length "number_of_leds" with zeros
-    return [spectrum_colors[offset]] * number_of_leds
-
 # Slide the spectrum across the strip
 def spectrum_slide(number_of_leds, offset, spectrum_colors):
 

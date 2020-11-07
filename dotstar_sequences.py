@@ -19,8 +19,6 @@ parser.add_argument("pattern", type=str, choices=[
     "off",
     "solid_white",
     "rainbow",
-    "spectrum",
-    "spectrum_fade",
     "spectrum_slide",
     "spectrum_straight_across",
     "spectrum_straight_across_with_rotation",
@@ -135,11 +133,6 @@ while True:
                 dot_colors[i] = colors[rainbow_index]
 
             render(dot_colors)
-
-        elif args.pattern == "spectrum_fade":
-
-            steps_per_revolution = len(spectrum_colors)
-            dot_colors = spectrum_fade(number_of_leds, offset, spectrum_colors)
 
         elif args.pattern == "spectrum_slide":
 

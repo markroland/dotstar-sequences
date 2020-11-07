@@ -19,6 +19,7 @@ from sequence.fade import *
 from sequence.fire import *
 from sequence.random import *
 from sequence.sparkle import *
+from sequence.spectrum import *
 from sequence.stripes import *
 from sequence.textFileDemo import *
 import atexit
@@ -39,6 +40,7 @@ parser.add_argument("sequence", type=str, choices=[
     "points",
     "random",
     "sparkle",
+    "spectrum-fade",
     "stripes",
     "white"
     ],
@@ -120,6 +122,9 @@ elif args.sequence == "random":
 elif args.sequence == "sparkle":
     Sequence = Sparkle(NUMBER_OF_LEDS)
     Sequence.setup()
+elif args.sequence == "spectrum-fade":
+    Sequence = Spectrum(NUMBER_OF_LEDS)
+    Sequence.setup("sinebow", "fade", 60)
 elif args.sequence == "stripes":
     Sequence = Stripes(NUMBER_OF_LEDS)
     Sequence.setup(-1, 4)

@@ -12,7 +12,7 @@ from datetime import datetime
 from sequences import *
 from sequence.crossing import Crossing
 from sequence.sparkle import Sparkle
-from pattern.spectrum import *
+from sequence.spectrum import *
 
 # Write a List of colors to the Dotstar object and then Show them
 def render(colors):
@@ -51,6 +51,15 @@ def darken(color, darken):
     new_color = colorsys.hsv_to_rgb(h,s,v)
 
     return (int(new_color[0]), int(new_color[1]), int(new_color[2]))
+
+def fade_brightness(start, end, duration):
+    brightness_start = brightness
+    fade_on_frames = round(duration * (1/frame_delay))
+    for i in range(fade_on_frames):
+        dots.brightness = brightness * (i/fade_on_frames)
+        dots.show()
+        time.sleep(frame_delay)
+    dots.brightness = brightness
 
 # Set Brightness
 brightness = 0.5
@@ -159,45 +168,31 @@ while True:
                 dots.show()
                 time.sleep(frame_delay)
 
-        elif day_of_week == 1:
+        elif day_of_week == 4:
 
             # Transition through full spectrum during full run time
 
             # Fade On
-            brightness_start = brightness
-            fade_on_frames = 20
-            for i in range(fade_on_frames):
-                dots.brightness = brightness * (i/fade_on_frames)
-                dot_colors = [spectrum_colors[0]] * number_of_leds
-                render(dot_colors)
-                time.sleep(frame_delay)
-            dots.brightness = brightness
+            dot_colors = [spectrum_colors[0]] * number_of_leds
+            fade_brightness(0, brightness, 0.33)
 
-            # Loop
+            Sequence = Spectrum(number_of_leds)
+            Sequence.setup("sinebow", "fade", time_end - time_start)
+
             while time_now < time_end:
 
-                # Update time
                 time_now = time.time()
 
-                # Calculate offset as a function of time
-                offset = int((len(spectrum_colors)-1) * min((time_now - time_start)/(time_end - time_start), 1.0))
+                dot_colors = Sequence.update()
 
-                # Set the colors
-                dot_colors = [spectrum_colors[offset]] * number_of_leds
-
-                # Render the colors
+                # Render to LED strip
                 render(dot_colors)
 
                 # Delay before iterating through loop
                 time.sleep(frame_delay)
 
             # Fade Off
-            brightness_start = brightness
-            fade_off_frames = 20
-            for i in range(fade_off_frames):
-                dots.brightness = brightness - (brightness_start * (i/fade_off_frames))
-                dots.show()
-                time.sleep(frame_delay)
+            fade_brightness(brightness, 0, 0.33)
 
         elif day_of_week == 2:
 
@@ -264,10 +259,6 @@ while True:
             length_1 = int(number_of_leds * 0.33)
             length_2 = int(number_of_leds * 0.2)
             Sequence.setup(hue_1, hue_2, length_1, length_2)
-
-            # Initialize timing
-            time_0 = time.time()
-            time_now = time_0
 
             while time_now < time_end:
 
