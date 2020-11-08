@@ -74,41 +74,13 @@ python3 ./server/index.py
 
 Test script for a smooth cross-fade transition between two sequences.
 
-##### dotstar_basic.py
-
-Fill the LEDs with a solid color.
-
-##### dotstar_fade.py
-
-Fade from one color to another. RGB and HSV fade modes are supported.
-
-##### dotstar_off.py
-
-Turn off the Dotstar strip. This is useful if the strip is left lit by a previously run script.
-
-##### dotstar_rainbow.py
-
-Render the full color spectrum across the strip and slowly translate their position over time.
-
-##### dotstar_run.py
-
-Run a show continuously
-
-##### dotstar_sequences.py
-
-This is a CLI for selecting and running a sequence.
-
-##### dotstar_show.py
+##### show.py
 
 This is a test script for cycling through multiple sequences and making a smooth transition between them.
 
-##### dotstar_spectrum.py
+##### schedule.py
 
-Loop through each color in the spectrum as a solid fill.
-
-##### sequences.py
-
-This is a function library of color patterns and sequences.
+Run this script continuously with different sequences scheduled for each day.
 
 ##### simulate.py
 
