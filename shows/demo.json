@@ -1,0 +1,16 @@
+[
+    {
+        "module": "Acceleration",
+        "file": "sequence/acceleration.py",
+        "parameters": [6],
+        "frame_delay": 0.033,
+        "duration": 10.0
+    },
+    {
+        "module": "Breathe",
+        "file": "sequence/breathe.py",
+        "parameters": [0.1, 0.5],
+        "frame_delay": 0.033,
+        "duration": 10.0
+    }
+]

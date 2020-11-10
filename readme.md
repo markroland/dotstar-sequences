@@ -70,13 +70,9 @@ python3 ./server/index.py
 
 ## Script Descriptions
 
-##### crossfade.py
+##### play.py
 
-Test script for a smooth cross-fade transition between two sequences.
-
-##### show.py
-
-This is a test script for cycling through multiple sequences and making a smooth transition between them.
+##### demo.py
 
 ##### schedule.py
 
