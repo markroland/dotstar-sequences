@@ -9,6 +9,8 @@ import board
 import adafruit_dotstar as dotstar
 import time
 import random
+from dotenv import load_dotenv
+import os
 from pattern.rainbow import *
 from sequence.acceleration import *
 from sequence.breathe import *
@@ -59,9 +61,10 @@ parser.add_argument("-d", "--delay", type=float, help="Set the frame delay in se
 args = parser.parse_args()
 
 # Set defaults prior to input
-NUMBER_OF_LEDS = 119;
-brightness = 0.5
-frame_delay = 1/60;
+load_dotenv()
+NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
+brightness = float(os.environ.get("DEFAULT_BRIGHTNESS"))
+frame_delay = float(os.environ.get("DEFAULT_FRAME_DELAY"))
 
 if args.sequence is None:
 

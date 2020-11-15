@@ -36,6 +36,16 @@ TBD
 
 ## Usage
 
+### Setup
+
+Copy and set the .env Environment file for your configuration
+
+```
+cp .env.example .env
+```
+
+### Run
+
 ```
 python3 play.py cuttlefish
 ```

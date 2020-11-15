@@ -1,15 +1,18 @@
 # Simulate a sequence as an animated GIF
 
+from dotenv import load_dotenv
+import os
 from pathlib import Path
 from PIL import Image, ImageDraw
 import math
 from sequence.fire import *
 from sequence.cuttlefish import *
 
-NUMBER_OF_LEDS = 119
+load_dotenv()
+NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
+frame_delay = 1/20
 
 # Set Sequence
-frame_delay = 1/20
 Sequence = Cuttlefish(NUMBER_OF_LEDS)
 Sequence.setup()
 sequence_length = 200

@@ -9,6 +9,8 @@ from datetime import datetime
 import time
 import math
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 import json
 import importlib
 import atexit
@@ -31,18 +33,16 @@ def shutdown():
 # Register shutdown function
 atexit.register(shutdown)
 
-# Set Brightness
-brightness = 0.5
-
-# Set time delay between frames (Refresh rate)
-frame_delay = 1/30;
-
-# Specify number of pixels
-NUMBER_OF_LEDS = 119;
+# Load environment settings
+load_dotenv()
+NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
+brightness = float(os.environ.get("DEFAULT_BRIGHTNESS"))
+# frame_delay = float(os.environ.get("DEFAULT_FRAME_DELAY"))
+frame_delay = 1/30
 
 # Set start and end hours of the day (i.e. 7am - 10pm)
-START_HOUR = 6
-END_HOUR = 22
+START_HOUR = int(os.environ.get("SCHEDULE_START_HOUR"))
+END_HOUR = int(os.environ.get("SCHEDULE_END_HOUR"))
 
 # Read in show configuration from a config file
 show_filepath = Path(__file__).parent / "shows/weekly.json"

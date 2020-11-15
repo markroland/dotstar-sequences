@@ -7,6 +7,8 @@ import time
 from pathlib import Path
 import json
 import importlib
+from dotenv import load_dotenv
+import os
 
 # Add two Lists of colors
 def colors_add(colors_1, colors_2):
@@ -39,9 +41,10 @@ def crossfade(colors_out, colors_in, period, time):
     return colors_add(colors_out_fade, colors_in_fade)
 
 # Set defaults prior to input
-NUMBER_OF_LEDS = 119;
-brightness = 0.5
-FRAME_DELAY = 1/30;
+load_dotenv()
+NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
+brightness = float(os.environ.get("DEFAULT_BRIGHTNESS"))
+FRAME_DELAY = float(os.environ.get("DEFAULT_FRAME_DELAY"))
 CROSSFADE_SECONDS = 3
 
 # Read in show configuration from a config file
