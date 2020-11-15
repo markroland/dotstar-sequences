@@ -133,8 +133,8 @@ elif selected_sequence == "fire":
     Sequence.setup()
 elif selected_sequence == "off":
     dots.fill((0, 0, 0))
-    dots.deinit();
-    quit();
+    dots.deinit()
+    quit()
 elif selected_sequence == "on":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
 elif selected_sequence == "points":

@@ -51,7 +51,7 @@ CROSSFADE_SECONDS = 3
 show_filepath = Path(__file__).parent / "shows/demo.json"
 with open(str(show_filepath)) as show_json:
     show_config = json.load(show_json)
-    show_json.close();
+    show_json.close()
 
 # Using a DotStar Digital LED Strip with LEDs connected to hardware SPI
 dots = dotstar.DotStar(board.SCK, board.MOSI, NUMBER_OF_LEDS, brightness=brightness, auto_write=False)

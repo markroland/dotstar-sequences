@@ -48,7 +48,7 @@ END_HOUR = int(os.environ.get("SCHEDULE_END_HOUR"))
 show_filepath = Path(__file__).parent / "shows/weekly.json"
 with open(str(show_filepath)) as show_json:
     show_config = json.load(show_json)
-    show_json.close();
+    show_json.close()
 
 # Loop forever
 while True:
