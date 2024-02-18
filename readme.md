@@ -93,6 +93,18 @@ Run this script continuously with different sequences scheduled for each day.
 Render a Sequence to an animated GIF image.
 
 
+## Simulator
+
+This code includes a browser-based simulator to display the lighting sequences. It uses [Node](https://nodejs.org/)
+and [Three.js](https://threejs.org/).
+
+From the simulator directory:
+```
+npm install
+npx vite
+```
+
+Once [Vite](https://vitejs.dev/) is running you can view the simulator in your browser. Vite should tell you a URL to load, like http://localhost:5173.
 
 ## Resources
 
