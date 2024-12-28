@@ -24,7 +24,7 @@ class Acceleration:
         self.num_stripes = num_stripes
         self.time_0 = time.time()
         self.time = time.time() - self.time_0
-        self.leds = stripes((200, 0, 0), (0,128,255), self.number_of_leds, self.num_stripes)
+        self.leds = stripes((56, 56, 56), (255, 0, 255), self.number_of_leds, self.num_stripes)
         return
 
     def update(self):
