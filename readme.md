@@ -48,7 +48,7 @@ cp .env.example .env
 ### Run
 
 ```
-python3 play.py cuttlefish
+python play.py cuttlefish
 ```
 
 ## Folder Descriptions
@@ -73,7 +73,7 @@ Python modules for animated lighting sequences
 A web server for controller lighting sequences remotely
 
 ```
-python3 ./server/index.py
+python ./server/index.py
 ```
 
 ## Script Descriptions
