@@ -92,8 +92,11 @@ Render a Sequence to an animated GIF image.
 
 ## Simulator
 
+![Browser Simulator](demo/simulator.png)
+
 This code includes a browser-based simulator to display the lighting sequences. It uses [Node](https://nodejs.org/)
-and [Three.js](https://threejs.org/).
+and [Three.js](https://threejs.org/). At this time only the `breathe` sequence is programmed as JavaScript.
+Additional work is required to implement the other sequences.
 
 From the simulator directory:
 ```
