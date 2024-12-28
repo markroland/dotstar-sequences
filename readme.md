@@ -35,6 +35,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Random
 ![Random](demo/random.gif)
 
+### Sparkle
+![Sparkle](demo/sparkle.gif)
+
 ## Hardware Recommendations
 
  - [Raspberry Pi 3](https://www.adafruit.com/category/105)

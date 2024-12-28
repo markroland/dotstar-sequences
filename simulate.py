@@ -27,7 +27,7 @@ from sequence.fade import *
 from sequence.fire import *
 from sequence.points import *
 from sequence.random import *
-# from sequence.sparkle import *
+from sequence.sparkle import *
 # from sequence.spectrum import *
 # from sequence.stripes import *
 # from sequence.textFileDemo import *
@@ -91,6 +91,11 @@ def sequence_setup(sequence_name):
         Sequence = Random(NUMBER_OF_LEDS)
         Sequence.setup()
         sequence_length = 60
+    elif selected_sequence == "sparkle":
+        frame_delay = 1/40
+        Sequence = Sparkle(NUMBER_OF_LEDS)
+        Sequence.setup()
+        sequence_length = 200
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -112,7 +117,7 @@ supported_sequences = [
     "fire",
     "points",
     "random",
-    # "sparkle",
+    "sparkle",
     # "spectrum-fade",
     # "spectrum-slide",
     # "spectrum-wipe",
