@@ -25,9 +25,9 @@ from sequence.breathe import *
 from sequence.clock import *
 from sequence.crossing import *
 from sequence.cuttlefish import *
-from sequence.points import *
-# from sequence.fade import *
+from sequence.fade import *
 # from sequence.fire import *
+from sequence.points import *
 # from sequence.random import *
 # from sequence.sparkle import *
 # from sequence.spectrum import *
@@ -72,6 +72,12 @@ def sequence_setup(sequence_name):
         Sequence = Crossing(NUMBER_OF_LEDS)
         Sequence.setup(0.1, 0.5, 30, 40)
         sequence_length = 200
+    elif selected_sequence == "fade":
+        Sequence = Fade(NUMBER_OF_LEDS)
+        colors_start = [(0,0,255)] * NUMBER_OF_LEDS
+        colors_end = [(255,255,0)] * NUMBER_OF_LEDS
+        Sequence.setup("hsv", 10, colors_start, colors_end)
+        sequence_length = round(10 / frame_delay)
     elif selected_sequence == "points":
         Sequence = Points(NUMBER_OF_LEDS)
         Sequence.setup(-1, 6, 5, (255, 0, 0))
@@ -93,7 +99,7 @@ supported_sequences = [
     "clock",
     "crossing",
     "cuttlefish",
-    # "fade",
+    "fade",
     # "fire",
     "points",
     # "rainbow",

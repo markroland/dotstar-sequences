@@ -23,6 +23,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Cuttlefish
 ![Cuttlefish](demo/cuttlefish.gif)
 
+### Fade
+![Fade](demo/fade.gif)
+
 ### Points
 ![Points](demo/points.gif)
 
