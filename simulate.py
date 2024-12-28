@@ -22,7 +22,7 @@ import math
 
 from sequence.acceleration import *
 from sequence.breathe import *
-# from sequence.clock import *
+from sequence.clock import *
 from sequence.crossing import *
 from sequence.cuttlefish import *
 # from sequence.points import *
@@ -45,6 +45,8 @@ NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
 # using a real-time clock and this should be taken into account.
 frame_delay = 1/20
 
+# Note: sequence_length represents the number of frames in the animated GIF
+
 def sequence_setup(sequence_name):
     if sequence_name == "acceleration":
         Sequence = Acceleration(NUMBER_OF_LEDS)
@@ -53,23 +55,27 @@ def sequence_setup(sequence_name):
     elif sequence_name == "breathe":
         Sequence = Breathe(NUMBER_OF_LEDS)
         Sequence.setup(0.3, 0.8)
-        frame_delay = 1/20  # Example: set frame delay here if needed
         sequence_length = math.floor(4 / frame_delay)
+    elif sequence_name == "clock":
+        frame_delay = 1/4
+        Sequence = Clock(NUMBER_OF_LEDS)
+        display_rotation = math.floor(NUMBER_OF_LEDS * 0.25)
+        # print(f"Display rotation: {display_rotation}")
+        Sequence.setup(display_rotation)
+        sequence_length = 120
     elif sequence_name == "cuttlefish":
         Sequence = Cuttlefish(NUMBER_OF_LEDS)
         Sequence.setup()
-        frame_delay = 1/20  # And here
         sequence_length = 200
     elif sequence_name == "crossing":
         Sequence = Crossing(NUMBER_OF_LEDS)
         Sequence.setup(0.1, 0.5, 30, 40)
         sequence_length = 200
-    # ... other sequences
-    else:  # Default case (optional)
+    else:
         print("Invalid sequence name")
         return None, None # or raise an exception
 
-    return Sequence, sequence_length
+    return Sequence, sequence_length, frame_delay
 
 # Example: If reading from an image, the sequence length is the height of the image
 # sequence_length = source_image.size[1]
@@ -79,7 +85,7 @@ supported_sequences = [
     "acceleration",
     "breathe",
     # "csv",
-    # "clock",
+    "clock",
     "crossing",
     "cuttlefish",
     # "fade",
@@ -117,7 +123,7 @@ else:
 
     selected_sequence = args.sequence
 
-Sequence, sequence_length = sequence_setup(selected_sequence)
+Sequence, sequence_length, frame_delay = sequence_setup(selected_sequence)
 
 output_filepath = Path(__file__).parent / "demo" / f"{selected_sequence}.gif"
 

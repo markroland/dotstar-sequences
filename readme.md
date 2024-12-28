@@ -14,8 +14,11 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Breathe
 ![Cuttlefish](demo/breathe.gif)
 
+### Clock
+![Clock](demo/clock.gif)
+
 ### Crossing
-![Cuttlefish](demo/crossing.gif)
+![Crossing](demo/crossing.gif)
 
 ### Cuttlefish
 ![Cuttlefish](demo/cuttlefish.gif)
