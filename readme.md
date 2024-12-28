@@ -47,6 +47,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Spectrum Wipe
 ![Spectrum Wipe](demo/spectrum-wipe.gif)
 
+### Stripes
+![Stripes](demo/stripes.gif)
+
 ## Hardware Recommendations
 
  - [Raspberry Pi 3](https://www.adafruit.com/category/105)

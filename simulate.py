@@ -29,7 +29,7 @@ from sequence.points import *
 from sequence.random import *
 from sequence.sparkle import *
 from sequence.spectrum import *
-# from sequence.stripes import *
+from sequence.stripes import *
 # from sequence.textFileDemo import *
 # from sequence.wipe import *
 
@@ -109,6 +109,11 @@ def sequence_setup(sequence_name):
         Sequence = Spectrum(NUMBER_OF_LEDS)
         Sequence.setup("sinebow", "wipe", 3)
         sequence_length = NUMBER_OF_LEDS
+    elif selected_sequence == "stripes":
+        Sequence = Stripes(NUMBER_OF_LEDS)
+        num_stripes = 4
+        Sequence.setup(-1, num_stripes)
+        sequence_length = math.floor(NUMBER_OF_LEDS / num_stripes) * 2 + 1
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -134,7 +139,7 @@ supported_sequences = [
     "spectrum-fade",
     "spectrum-slide",
     "spectrum-wipe",
-    # "stripes",
+    "stripes",
     # "wipe"
 ]
 parser = argparse.ArgumentParser()
