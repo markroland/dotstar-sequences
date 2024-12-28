@@ -23,6 +23,8 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Cuttlefish
 ![Cuttlefish](demo/cuttlefish.gif)
 
+### Points
+![Points](demo/points.gif)
 
 ## Hardware Recommendations
 

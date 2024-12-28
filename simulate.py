@@ -25,7 +25,7 @@ from sequence.breathe import *
 from sequence.clock import *
 from sequence.crossing import *
 from sequence.cuttlefish import *
-# from sequence.points import *
+from sequence.points import *
 # from sequence.fade import *
 # from sequence.fire import *
 # from sequence.random import *
@@ -72,6 +72,10 @@ def sequence_setup(sequence_name):
         Sequence = Crossing(NUMBER_OF_LEDS)
         Sequence.setup(0.1, 0.5, 30, 40)
         sequence_length = 200
+    elif selected_sequence == "points":
+        Sequence = Points(NUMBER_OF_LEDS)
+        Sequence.setup(-1, 6, 5, (255, 0, 0))
+        sequence_length = 24 # math.floor(NUMBER_OF_LEDS / 5)
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -91,9 +95,7 @@ supported_sequences = [
     "cuttlefish",
     # "fade",
     # "fire",
-    # "off",
-    # "on",
-    # "points",
+    "points",
     # "rainbow",
     # "random",
     # "sparkle",
