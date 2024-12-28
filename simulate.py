@@ -38,16 +38,17 @@ from sequence.cuttlefish import *
 load_dotenv()
 NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
 
-# Set the frame delay in seconds
-# A shorter frame delay will result in smoother, longer animations
-# Each Sequence should have a sequence_length calculated that represents
-# the full period of the sequence. Most, if not all, Sequences are calculated
-# using a real-time clock and this should be taken into account.
-frame_delay = 1/20
-
-# Note: sequence_length represents the number of frames in the animated GIF
-
 def sequence_setup(sequence_name):
+
+    # Set the frame delay in seconds
+    # A shorter frame delay will result in smoother, longer animations
+    # Each Sequence should have a sequence_length calculated that represents
+    # the full period of the sequence. Most, if not all, Sequences are calculated
+    # using a real-time clock and this should be taken into account.
+    frame_delay = 1/20
+
+    # Note: sequence_length represents the number of frames in the animated GIF
+
     if sequence_name == "acceleration":
         Sequence = Acceleration(NUMBER_OF_LEDS)
         Sequence.setup(6)
