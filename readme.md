@@ -111,6 +111,7 @@ Once [Vite](https://vitejs.dev/) is running you can view the simulator in your b
 - [Adafruit DotStar LEDs](https://learn.adafruit.com/adafruit-dotstar-leds/overview)
 - [CircuitPython DotStar](https://learn.adafruit.com/circuitpython-essentials/circuitpython-dotstar)
 - [Blinka Test Script](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi)
+- [Gradient Generator Tool](https://learnui.design/tools/gradient-generator.html)
 
 ## License
 
