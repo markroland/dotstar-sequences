@@ -10,16 +10,13 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ![Demo Video](demo/cuttlefish.gif)
 
-
-
 ## Hardware Recommendations
 
  - [Raspberry Pi 3](https://www.adafruit.com/category/105)
  - [Adafruit Dotstar LED Strip](https://learn.adafruit.com/adafruit-dotstar-leds)
  - [Breadboard](https://www.adafruit.com/product/239)
- - [Jumber Wires](https://www.adafruit.com/category/306)
+ - [Jumper Wires](https://www.adafruit.com/category/306)
  - [Power Supply](https://www.adafruit.com/product/1466)
-
 
 ## Software Recommendations
 
@@ -54,7 +51,6 @@ cp .env.example .env
 python3 play.py cuttlefish
 ```
 
-
 ## Folder Descriptions
 
 ##### data
@@ -62,7 +58,6 @@ python3 play.py cuttlefish
 Contains static data to be read in for rendering a sequence
 
 ##### demo
-
 Contains project documentation resources
 
 ##### pattern
@@ -70,6 +65,7 @@ Contains project documentation resources
 Python modules for static lighting patterns
 
 ##### sequence
+
 Python modules for animated lighting sequences
 
 ##### server
@@ -79,7 +75,6 @@ A web server for controller lighting sequences remotely
 ```
 python3 ./server/index.py
 ```
-
 
 ## Script Descriptions
 
@@ -94,7 +89,6 @@ Run this script continuously with different sequences scheduled for each day.
 ##### simulate.py
 
 Render a Sequence to an animated GIF image.
-
 
 ## Simulator
 
@@ -122,4 +116,3 @@ Once [Vite](https://vitejs.dev/) is running you can view the simulator in your b
 This work is licensed under a [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) License.
 
 This work makes use of the [Adafruit CircuitPython DotStar](https://github.com/adafruit/Adafruit_CircuitPython_DotStar) library.
-
