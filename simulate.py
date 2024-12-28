@@ -28,7 +28,7 @@ from sequence.fire import *
 from sequence.points import *
 from sequence.random import *
 from sequence.sparkle import *
-# from sequence.spectrum import *
+from sequence.spectrum import *
 # from sequence.stripes import *
 # from sequence.textFileDemo import *
 # from sequence.wipe import *
@@ -96,6 +96,19 @@ def sequence_setup(sequence_name):
         Sequence = Sparkle(NUMBER_OF_LEDS)
         Sequence.setup()
         sequence_length = 200
+    elif selected_sequence == "spectrum-fade":
+        Sequence = Spectrum(NUMBER_OF_LEDS)
+        Sequence.setup("sinebow", "fade", 10)
+        # Tje subtracted value is an experimentally determined value to try to make the animation loop seamlessly
+        sequence_length = round(10 / frame_delay) - 10
+    elif selected_sequence == "spectrum-slide":
+        Sequence = Spectrum(NUMBER_OF_LEDS)
+        Sequence.setup("sinebow", "slide", 3)
+        sequence_length = NUMBER_OF_LEDS
+    elif selected_sequence == "spectrum-wipe":
+        Sequence = Spectrum(NUMBER_OF_LEDS)
+        Sequence.setup("sinebow", "wipe", 3)
+        sequence_length = NUMBER_OF_LEDS
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -118,9 +131,9 @@ supported_sequences = [
     "points",
     "random",
     "sparkle",
-    # "spectrum-fade",
-    # "spectrum-slide",
-    # "spectrum-wipe",
+    "spectrum-fade",
+    "spectrum-slide",
+    "spectrum-wipe",
     # "stripes",
     # "wipe"
 ]

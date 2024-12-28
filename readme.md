@@ -38,6 +38,15 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Sparkle
 ![Sparkle](demo/sparkle.gif)
 
+### Spectrum Fade
+![Spectrum Fade](demo/spectrum-fade.gif)
+
+### Spectrum Slide
+![Spectrum Slide](demo/spectrum-slide.gif)
+
+### Spectrum Wipe
+![Spectrum Wipe](demo/spectrum-wipe.gif)
+
 ## Hardware Recommendations
 
  - [Raspberry Pi 3](https://www.adafruit.com/category/105)
