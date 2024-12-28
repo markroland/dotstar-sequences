@@ -29,10 +29,14 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ## Circuit
 
-```
-TBD
-```
+The Dotstar has four connections:
 
+1) **Ground** - Connect this to the common ground for the power supply and Raspberry Pi (i.e. ground rail of a breadboard)
+2) **Power** - Connect this to a +5V power supply. Make sure your supply has enough current for your LED strip.
+3) **Clock Input (CI)** - Connect this to Raspberry Pi's SPI SCLK Pin
+4) **Data Input (DI)** - Connect this to Raspberry Pi's SPI MOSI Pin
+
+See [Adafruit's Power and Connections](https://learn.adafruit.com/adafruit-dotstar-leds/power-and-connections) guide for more information.
 
 ## Usage
 
@@ -66,7 +70,6 @@ Contains project documentation resources
 Python modules for static lighting patterns
 
 ##### sequence
-
 Python modules for animated lighting sequences
 
 ##### server
