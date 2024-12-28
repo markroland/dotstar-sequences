@@ -130,7 +130,7 @@ elif selected_sequence == "fade":
 elif selected_sequence == "fire":
     frame_delay = 1/20
     Sequence = Fire(NUMBER_OF_LEDS)
-    Sequence.setup()
+    Sequence.setup("data/fire.png")
 elif selected_sequence == "off":
     dots.fill((0, 0, 0))
     dots.deinit()

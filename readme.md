@@ -26,6 +26,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Fade
 ![Fade](demo/fade.gif)
 
+### Fire
+![Fire](demo/fire.gif)
+
 ### Points
 ![Points](demo/points.gif)
 

@@ -26,7 +26,7 @@ from sequence.clock import *
 from sequence.crossing import *
 from sequence.cuttlefish import *
 from sequence.fade import *
-# from sequence.fire import *
+from sequence.fire import *
 from sequence.points import *
 # from sequence.random import *
 # from sequence.sparkle import *
@@ -78,6 +78,12 @@ def sequence_setup(sequence_name):
         colors_end = [(255,255,0)] * NUMBER_OF_LEDS
         Sequence.setup("hsv", 10, colors_start, colors_end)
         sequence_length = round(10 / frame_delay)
+    elif selected_sequence == "fire":
+        frame_delay = 1/200
+        Sequence = Fire(NUMBER_OF_LEDS)
+        Sequence.setup("data/fire.png")
+        height = 500
+        sequence_length = height
     elif selected_sequence == "points":
         Sequence = Points(NUMBER_OF_LEDS)
         Sequence.setup(-1, 6, 5, (255, 0, 0))
@@ -100,7 +106,7 @@ supported_sequences = [
     "crossing",
     "cuttlefish",
     "fade",
-    # "fire",
+    "fire",
     "points",
     # "rainbow",
     # "random",
@@ -109,7 +115,6 @@ supported_sequences = [
     # "spectrum-slide",
     # "spectrum-wipe",
     # "stripes",
-    # "white",
     # "wipe"
 ]
 parser = argparse.ArgumentParser()
