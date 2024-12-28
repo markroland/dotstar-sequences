@@ -32,6 +32,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Points
 ![Points](demo/points.gif)
 
+### Random
+![Random](demo/random.gif)
+
 ## Hardware Recommendations
 
  - [Raspberry Pi 3](https://www.adafruit.com/category/105)

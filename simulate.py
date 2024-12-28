@@ -18,8 +18,6 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 import math
 
-# from pattern.rainbow import *
-
 from sequence.acceleration import *
 from sequence.breathe import *
 from sequence.clock import *
@@ -28,7 +26,7 @@ from sequence.cuttlefish import *
 from sequence.fade import *
 from sequence.fire import *
 from sequence.points import *
-# from sequence.random import *
+from sequence.random import *
 # from sequence.sparkle import *
 # from sequence.spectrum import *
 # from sequence.stripes import *
@@ -88,6 +86,11 @@ def sequence_setup(sequence_name):
         Sequence = Points(NUMBER_OF_LEDS)
         Sequence.setup(-1, 6, 5, (255, 0, 0))
         sequence_length = 24 # math.floor(NUMBER_OF_LEDS / 5)
+    elif selected_sequence == "random":
+        frame_delay = 1/10
+        Sequence = Random(NUMBER_OF_LEDS)
+        Sequence.setup()
+        sequence_length = 60
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -108,8 +111,7 @@ supported_sequences = [
     "fade",
     "fire",
     "points",
-    # "rainbow",
-    # "random",
+    "random",
     # "sparkle",
     # "spectrum-fade",
     # "spectrum-slide",
