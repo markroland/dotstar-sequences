@@ -6,6 +6,8 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ![Demo Video](demo/cuttlefish-video.gif)
 
+[See more video on YouTube](https://www.youtube.com/watch?v=jlwEHKuH5io)
+
 ## Sequence Simulations
 
 ### Acceleration
