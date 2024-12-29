@@ -149,8 +149,8 @@ Render a Sequence to a static PNG image where each line represents the state of 
 ![Browser Simulator](demo/simulator.png)
 
 This code includes a browser-based simulator to display the lighting sequences. It uses [Node](https://nodejs.org/)
-and [Three.js](https://threejs.org/). At this time only the `breathe` sequence is programmed as JavaScript.
-Additional work is required to implement the other sequences.
+and [Three.js](https://threejs.org/). This reads sequences as PNG images, where each column of the image represents
+a single LED in the strand, and each row represents a frame of the animated sequence.
 
 From the simulator directory:
 ```
@@ -158,7 +158,7 @@ npm install
 npx vite
 ```
 
-Once [Vite](https://vitejs.dev/) is running you can view the simulator in your browser. Vite should tell you a URL to load, like http://localhost:5173.
+Running `npx vite` ([Vite](https://vitejs.dev/)) will start a server and tell you a local URL to load in your browser to view the simulation, like http://localhost:5173.
 
 ## Resources
 
