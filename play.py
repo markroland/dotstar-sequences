@@ -19,7 +19,7 @@ from sequence.crossing import *
 from sequence.cuttlefish import *
 from sequence.points import *
 from sequence.fade import *
-from sequence.fire import *
+from sequence.pngFile import *
 from sequence.random import *
 from sequence.sparkle import *
 from sequence.spectrum import *
@@ -47,6 +47,7 @@ supported_sequences = [
     "spectrum-slide",
     "spectrum-wipe",
     "stripes",
+    "sunrise",
     "white",
     "wipe"
 ]
@@ -118,7 +119,7 @@ elif selected_sequence == "crossing":
 elif selected_sequence == "csv":
     frame_delay = 1/2
     Sequence = TextFileDemo(NUMBER_OF_LEDS)
-    Sequence.setup()
+    Sequence.setup("data/blink-magenta.csv")
 elif selected_sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
     Sequence.setup()
@@ -129,8 +130,8 @@ elif selected_sequence == "fade":
     Sequence.setup("hsv", 10, colors_start, colors_end)
 elif selected_sequence == "fire":
     frame_delay = 1/20
-    Sequence = Fire(NUMBER_OF_LEDS)
-    Sequence.setup()
+    Sequence = PngFile(NUMBER_OF_LEDS)
+    Sequence.setup("data/fire.png")
 elif selected_sequence == "off":
     dots.fill((0, 0, 0))
     dots.deinit()
@@ -165,6 +166,10 @@ elif selected_sequence == "spectrum-wipe":
 elif selected_sequence == "stripes":
     Sequence = Stripes(NUMBER_OF_LEDS)
     Sequence.setup(-1, 4)
+elif selected_sequence == "sunrise":
+    frame_delay = 1/20
+    Sequence = PngFile(NUMBER_OF_LEDS)
+    Sequence.setup("data/sunrise.png")
 elif selected_sequence == "white":
     dot_colors = [(255, 255, 255)] * NUMBER_OF_LEDS
 elif selected_sequence == "wipe":

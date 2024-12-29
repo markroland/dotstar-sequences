@@ -1,7 +1,7 @@
 from PIL import Image
 from pathlib import Path
 
-class Fire:
+class PngFile:
 
     def __init__(self, number_of_leds):
         self.number_of_leds = number_of_leds
@@ -13,10 +13,10 @@ class Fire:
 
         self.iteration = 0
 
-    def setup(self):
+    def setup(self, input_file):
 
         # Load image in RGB format and get dimensions:
-        file_source = Path(__file__).parent / "../data/fire.png"
+        file_source = Path(__file__).parent / "../" / f"{input_file}"
         IMG = Image.open(file_source).convert("RGB")
         self.PIXELS = IMG.load()
         self.WIDTH = IMG.size[0]

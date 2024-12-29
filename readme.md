@@ -6,9 +6,52 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ![Demo Video](demo/cuttlefish-video.gif)
 
-## "Cuttlefish" Sequence Simulation
+## Sequence Simulations
 
-![Demo Video](demo/cuttlefish.gif)
+### Acceleration
+![Cuttlefish](demo/acceleration.gif)
+
+### Breathe
+![Cuttlefish](demo/breathe.gif)
+
+### Clock
+![Clock](demo/clock.gif)
+
+### Crossing
+![Crossing](demo/crossing.gif)
+
+### Read from CSV file (Blink)
+![CSV](demo/csv.gif)
+
+### Cuttlefish
+![Cuttlefish](demo/cuttlefish.gif)
+
+### Fade
+![Fade](demo/fade.gif)
+
+### Read from PNG image file (Fire)
+![Fire](demo/fire.gif)
+
+### Points
+![Points](demo/points.gif)
+
+### Random
+![Random](demo/random.gif)
+
+### Sparkle
+![Sparkle](demo/sparkle.gif)
+
+### Spectrum Fade
+![Spectrum Fade](demo/spectrum-fade.gif)
+
+### Spectrum Slide
+![Spectrum Slide](demo/spectrum-slide.gif)
+
+### Spectrum Wipe
+![Spectrum Wipe](demo/spectrum-wipe.gif)
+
+### Stripes
+![Stripes](demo/stripes.gif)
 
 ## Hardware Recommendations
 

@@ -14,19 +14,17 @@ class TextFileDemo:
         lv = len(value)
         return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
-    def setup(self):
+    def setup(self, input_file):
 
         # Define path (for Python 3.5)
         my_path = os.path.abspath(os.path.dirname(__file__))
-        file_source = os.path.join(my_path, "../data/sequence-1.csv")
+        file_source = os.path.join(my_path, "../" f"{input_file}")
 
         # Load image in RGB format and get dimensions:
         with open(file_source, newline='') as csvfile:
             file = csv.reader(csvfile, delimiter=',', quotechar='"')
             for line in file:
                 self.sequence.append(line)
-
-        print(len(self.sequence))
 
         return
 
