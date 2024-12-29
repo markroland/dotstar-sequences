@@ -20,6 +20,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Crossing
 ![Crossing](demo/crossing.gif)
 
+### Read from CSV file (Blink)
+![CSV](demo/csv.gif)
+
 ### Cuttlefish
 ![Cuttlefish](demo/cuttlefish.gif)
 

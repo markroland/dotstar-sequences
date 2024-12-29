@@ -118,7 +118,7 @@ elif selected_sequence == "crossing":
 elif selected_sequence == "csv":
     frame_delay = 1/2
     Sequence = TextFileDemo(NUMBER_OF_LEDS)
-    Sequence.setup()
+    Sequence.setup("data/blink-magenta.csv")
 elif selected_sequence == "cuttlefish":
     Sequence = Cuttlefish(NUMBER_OF_LEDS)
     Sequence.setup()

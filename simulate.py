@@ -30,7 +30,7 @@ from sequence.random import *
 from sequence.sparkle import *
 from sequence.spectrum import *
 from sequence.stripes import *
-# from sequence.textFileDemo import *
+from sequence.textFileDemo import *
 # from sequence.wipe import *
 
 load_dotenv()
@@ -70,6 +70,11 @@ def sequence_setup(sequence_name):
         Sequence = Crossing(NUMBER_OF_LEDS)
         Sequence.setup(0.1, 0.5, 30, 40)
         sequence_length = 200
+    elif sequence_name == "csv":
+        frame_delay = 1/2
+        Sequence = TextFileDemo(NUMBER_OF_LEDS)
+        Sequence.setup("data/blink-magenta.csv")
+        sequence_length = 2
     elif selected_sequence == "fade":
         Sequence = Fade(NUMBER_OF_LEDS)
         colors_start = [(0,0,255)] * NUMBER_OF_LEDS
@@ -127,7 +132,7 @@ def sequence_setup(sequence_name):
 supported_sequences = [
     "acceleration",
     "breathe",
-    # "csv",
+    "csv",
     "clock",
     "crossing",
     "cuttlefish",
