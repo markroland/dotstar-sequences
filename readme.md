@@ -90,6 +90,8 @@ cp .env.example .env
 
 ### Run
 
+Run the sequence on an LED strip.
+
 ```
 python play.py cuttlefish
 ```
@@ -123,15 +125,24 @@ python ./server/index.py
 
 ##### play.py
 
+Run a single sequence on an LED strip.
+
 ##### demo.py
+
+Run a demonstration show on the LED strip. This will go through several sequences as defined in a JSON file.
 
 ##### schedule.py
 
-Run this script continuously with different sequences scheduled for each day.
+Run this script continuously with different sequences scheduled for each day. This should generally be run
+as a background process.
 
 ##### simulate.py
 
 Render a Sequence to an animated GIF image.
+
+##### sequence-to-image.py
+
+Render a Sequence to a static PNG image where each line represents the state of each LED in the strand.
 
 ## Simulator
 
