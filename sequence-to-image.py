@@ -11,6 +11,7 @@ from pathlib import Path
 import math
 import time
 from PIL import Image
+import csv
 
 load_dotenv()
 NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
@@ -68,20 +69,22 @@ for i in range(NUMBER_OF_LEDS):
 # Intialize counter
 offset = 0
 
+# Open Image file for writing
+output_filepath = Path(__file__).parent / "data/rainbow.png"
 img = Image.new('RGB', (NUMBER_OF_LEDS, NUMBER_OF_LEDS))
 
+# Initialize array to hold RGB tuples
 img_dots = []
 
-# Loop forever
-# while True:
+# Loop through sequence
 for t in range(NUMBER_OF_LEDS):
 
     # Shift spectrum
-    offset = ((offset + 1) % NUMBER_OF_LEDS)
+    # offset = ((offset + 1) % NUMBER_OF_LEDS)
 
     # Fill dots object with values from "spectrum".
     # "dots" can't be assigned directly because it's a "dotstar" object, not an array
-    spectrum = shift(spectrum, 1)v
+    spectrum = shift(spectrum, 1)
     for i in range(NUMBER_OF_LEDS):
         # dots[i] = spectrum[i]
         img_dots.append(spectrum[i])
@@ -90,9 +93,31 @@ for t in range(NUMBER_OF_LEDS):
     # dots.show()
 
     # Delay before iterating through loop
-    time.sleep(1/60)
-
-output_filepath = Path(__file__).parent / "data/rainbow.png"
+    # time.sleep(1/60)
 
 img.putdata(img_dots)
 img.save(output_filepath)
+
+print(f"Image saved to {output_filepath}")
+
+# --- Create a CSV file of HEX values for each frame
+
+# Open CSV file for writing
+csv_filepath = Path(__file__).parent / "data/rainbow.csv"
+with open(csv_filepath, 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+
+    # Loop through sequence
+    for t in range(NUMBER_OF_LEDS):
+
+        # Fill dots object with values from "spectrum".
+        spectrum = shift(spectrum, 1)
+
+        # Convert RGB tuples to hex strings
+        hex_spectrum = ['#' + '%02x%02x%02x' % rgb for rgb in spectrum]
+
+        # Write current frame to CSV
+        # writer.writerow(spectrum)
+        writer.writerow(hex_spectrum)
+
+print(f"CSV data saved to {csv_filepath}")
