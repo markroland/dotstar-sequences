@@ -121,6 +121,14 @@ A web server for controller lighting sequences remotely
 python ./server/index.py
 ```
 
+##### shows
+
+Contains show definitions in JSON format. Used by schedule.py.
+
+##### simulator
+
+Contains code for running a browser based simulator of sequences
+
 ## Script Descriptions
 
 ##### play.py
