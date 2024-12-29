@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 
 import Stats from 'three/addons/libs/stats.module.js';
@@ -10,9 +9,22 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 let renderer, scene, camera;
 let stats;
 let Lights = [];
+let imageData, imageWidth, imageHeight;
+
+// Important: the number of lights is determined by the width of the image
+
+// Variables that can be adjusted per preference/setup
+const img_source = 'rainbow.png';
+const img_period = 5000; // Optional: Determine the period using the image height and a preferred frame rate, i.e. (500 rows * 1000 ms/s) / 20 fps = 25000 ms
+const radius = 50;
+const lightIntensity = 10;
+const lightYpos = 2;
 
 init();
 
+/**
+ * Initialize the ThreeJS scene
+ **/
 function init() {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -29,27 +41,8 @@ function init() {
 
     RectAreaLightUniformsLib.init();
 
-    const radius = 50;
-    const floor_side = 2 * radius;
-    let theta = 0;
-    const i_max = 201;
-    const lightIntensity = 50;
-    // const lightWidth = 5;
-    const lightWidth = 0.5 * (2 * radius * Math.sin(Math.PI / i_max));
-    const lightHeight = lightWidth;
-    let y = 2;
-    for (let i = 0; i < i_max; i++) {
-        Lights[i] = new THREE.RectAreaLight(0x000000, lightIntensity, lightWidth, lightHeight );
-        theta = (i/i_max) * (2 * Math.PI);
-        let x = radius * Math.cos(theta);
-        let z = radius * Math.sin(theta);
-        Lights[i].position.set( x, y, z );
-        Lights[i].lookAt( 0, y, 0 );
-        scene.add( Lights[i] );
-        scene.add( new RectAreaLightHelper( Lights[i] ) );
-    }
-
-    const geoFloor = new THREE.BoxGeometry( floor_side, 0.1, floor_side );
+    const geoFloor = new THREE.CircleGeometry( radius, 120 );
+    geoFloor.rotateX(-Math.PI / 2);
     const matStdFloor = new THREE.MeshStandardMaterial( { color: 0xFFFFFF, roughness: 0.5, metalness: 0 } );
     const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
     scene.add( mshStdFloor );
@@ -61,100 +54,100 @@ function init() {
 
     stats = new Stats();
     document.body.appendChild( stats.dom );
+
+    // Load the control image
+    loadImage(img_source).then(() => {
+
+        console.log('Imaged Loaded. Width: ' + imageWidth + ', Height: ' + imageHeight);
+
+        // Add lights to the scene
+        let theta = 0;
+        const NUMBER_OF_LEDS = imageWidth;
+        const lightWidth = 0.5 * (2 * radius * Math.sin(Math.PI / NUMBER_OF_LEDS));
+        const lightHeight = lightWidth;
+        for (let i = 0; i < NUMBER_OF_LEDS; i++) {
+            Lights[i] = new THREE.RectAreaLight(0x000000, lightIntensity, lightWidth, lightHeight );
+            theta = (i/NUMBER_OF_LEDS) * (2 * Math.PI);
+            let x = radius * Math.cos(theta);
+            let z = radius * Math.sin(theta);
+            Lights[i].position.set( x, lightYpos, z );
+            Lights[i].lookAt( 0, lightYpos, 0 );
+            scene.add( Lights[i] );
+            scene.add( new RectAreaLightHelper( Lights[i] ) );
+        }
+    })
 }
 
+/**
+ * Load an image that defines the light sequence animation
+ **/
+async function loadImage(img_src) {
+    const img = new Image();
+    img.src = img_src;
+    // For images from a different origin (domain, protocol, or port)
+    // img.crossOrigin = "";  // or img.crossOrigin = "anonymous";
+
+    try {
+        await img.decode();
+
+        imageWidth = img.width;
+        imageHeight = img.height;
+
+        // Create OffscreenCanvas
+        const offscreen = new OffscreenCanvas(imageWidth, imageHeight);
+        const ctx = offscreen.getContext('2d');
+
+        // Draw image onto the offscreen canvas
+        ctx.drawImage(img, 0, 0);
+
+        // Get image data from the offscreen canvas
+        imageData = ctx.getImageData(0, 0, imageWidth, imageHeight).data;
+
+    } catch (error) {
+        console.error("Error loading image:", error);
+    }
+}
+
+/**
+ * Window resize event handler
+ **/
 function onWindowResize() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     camera.aspect = ( window.innerWidth / window.innerHeight );
     camera.updateProjectionMatrix();
 }
 
+/**
+ * Animation loop for renderer
+ **/
 function animation( time ) {
-
-    // Set pixel colors
-
-    // RGB chase
-    /*
-    const red = new THREE.Color(0.5, 0, 0);
-    const green = new THREE.Color(0, 0.5, 0);
-    const blue = new THREE.Color(0, 0, 0.5);
-    const num_colors = 3;
-    let offset = Math.floor(time / 500) % num_colors;
-    for (let i = 0; i < Lights.length; i++) {
-        let pixel = red;
-        if ((i + offset) % num_colors == 1) {
-            pixel = green;
-        }
-        else if ((i + offset) % num_colors == 2) {
-            pixel = blue;
-        }
-        Lights[i].color.set(pixel);
-    }
-    //*/
-
-    // Breathe
-    breathe(time);
-
+    setLightsFromImage(time, img_period);
     renderer.render( scene, camera );
-
     stats.update();
 }
 
-function breathe(time) {
+/**
+ * Set the color of the ThreeJS lights based on the image data.
+ * @param {number} time -Elapsed time in milliseconds since the start of the animation
+ * @param {number} period The duration of the sequence in the image. Each frame will get the period / image-height
+ **/
+function setLightsFromImage(time, period) {
 
-    // Breath period in seconds
-    const period = 4 * 1000;
+    const row = Math.floor((time % period) / period * imageHeight);
 
-    const min_brightness = 0.1;
-    const max_brightness = 0.5;
+    for (let x = 0; x < imageWidth; x++) {
+        const index = (row * imageWidth + x) * 4;
 
-    // normal_brightness = 0.5 + (0.5 * math.sin( self.time * (1/self.period) * 2 * math.pi))
-    let normal_brightness = 0.5 + (0.5 * Math.sin(time * (1/period) * 2 * Math.PI));
+        const r = imageData[index];
+        const g = imageData[index + 1];
+        const b = imageData[index + 2];
 
-    // scaled_brightness = self.max_brightness * (normal_brightness * (self.max_brightness - self.min_brightness) + self.min_brightness)
-    let scaled_brightness = max_brightness * (normal_brightness * (max_brightness - min_brightness) + min_brightness);
+        // Now you have the RGB values for the pixel at (x, y).
+        // Use these values to set the lights. Example:
+        const pixelColor = new THREE.Color(r / 255, g / 255, b / 255);
 
-    // Option 1
-    const pixel = new THREE.Color().setHSL(0, 0, scaled_brightness);
-
-    // Option 2
-    // # Convert to RGB pixels
-    // let rgb = HSVtoRGB(0, 0, scaled_brightness);
-
-    // const pixel = new THREE.Color(rgb.r/255, rgb.g/255, rgb.b/255);
-
-    for (let i = 0; i < Lights.length; i++) {
-        Lights[i].color.set(pixel);
+        if (Lights[x]) {
+            Lights[x].color.set(pixelColor);
+        }
     }
-}
-
-// https://stackoverflow.com/a/17243070
-/* accepts parameters
- * h  Object = {h:x, s:y, v:z}
- * OR
- * h, s, v
-*/
-function HSVtoRGB(h, s, v) {
-    var r, g, b, i, f, p, q, t;
-    if (arguments.length === 1) {
-        s = h.s, v = h.v, h = h.h;
-    }
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = v * (1 - s);
-    q = v * (1 - f * s);
-    t = v * (1 - (1 - f) * s);
-    switch (i % 6) {
-        case 0: r = v, g = t, b = p; break;
-        case 1: r = q, g = v, b = p; break;
-        case 2: r = p, g = v, b = t; break;
-        case 3: r = p, g = q, b = v; break;
-        case 4: r = t, g = p, b = v; break;
-        case 5: r = v, g = p, b = q; break;
-    }
-    return {
-        r: Math.round(r * 255),
-        g: Math.round(g * 255),
-        b: Math.round(b * 255)
-    };
 }
