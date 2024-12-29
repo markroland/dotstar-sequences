@@ -29,7 +29,7 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Fade
 ![Fade](demo/fade.gif)
 
-### Fire
+### Read from PNG image file (Fire)
 ![Fire](demo/fire.gif)
 
 ### Points

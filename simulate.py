@@ -24,7 +24,7 @@ from sequence.clock import *
 from sequence.crossing import *
 from sequence.cuttlefish import *
 from sequence.fade import *
-from sequence.fire import *
+from sequence.pngFile import *
 from sequence.points import *
 from sequence.random import *
 from sequence.sparkle import *
@@ -83,7 +83,7 @@ def sequence_setup(sequence_name):
         sequence_length = round(10 / frame_delay)
     elif selected_sequence == "fire":
         frame_delay = 1/200
-        Sequence = Fire(NUMBER_OF_LEDS)
+        Sequence = PngFile(NUMBER_OF_LEDS)
         Sequence.setup("data/fire.png")
         height = 500
         sequence_length = height
@@ -119,6 +119,11 @@ def sequence_setup(sequence_name):
         num_stripes = 4
         Sequence.setup(-1, num_stripes)
         sequence_length = math.floor(NUMBER_OF_LEDS / num_stripes) * 2 + 1
+    elif selected_sequence == "sunrise":
+        Sequence = PngFile(NUMBER_OF_LEDS)
+        Sequence.setup("data/sunrise.png")
+        height = 500
+        sequence_length = height
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -145,6 +150,7 @@ supported_sequences = [
     "spectrum-slide",
     "spectrum-wipe",
     "stripes",
+    "sunrise"
     # "wipe"
 ]
 parser = argparse.ArgumentParser()

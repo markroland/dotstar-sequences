@@ -1,7 +1,7 @@
 from PIL import Image
 from pathlib import Path
 
-class Fire:
+class PngFile:
 
     def __init__(self, number_of_leds):
         self.number_of_leds = number_of_leds
