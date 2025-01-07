@@ -61,7 +61,7 @@ This project contains scripts that perform lighting effect sequences for Adafrui
  - [Adafruit Dotstar LED Strip](https://learn.adafruit.com/adafruit-dotstar-leds)
  - [Breadboard](https://www.adafruit.com/product/239)
  - [Jumper Wires](https://www.adafruit.com/category/306)
- - [Power Supply](https://www.adafruit.com/product/1466)
+ - [5V Power Supply](https://www.adafruit.com/product/1466) (2-4 Amps recommended)
 
 ## Software Recommendations
 
@@ -108,11 +108,20 @@ python play.py cuttlefish
 
 ## Folder Descriptions
 
+##### 2d-simulator
+
+Run a browser-based 2D simulation of the Sequence with WebGL shader
+
+##### 3d-simulator
+
+Run a browser-based 3D simulation of the Sequence using [Three.js](https://threejs.org)
+
 ##### data
 
 Contains static data to be read in for rendering a sequence
 
 ##### demo
+
 Contains project documentation resources
 
 ##### pattern
@@ -121,7 +130,7 @@ Python modules for static lighting patterns
 
 ##### renderings
 
-A folder to contain images created by sequence-to-png.py
+Contain images created by render-sequence.py
 
 ##### sequence
 
@@ -139,19 +148,21 @@ python ./server/index.py
 
 Contains show definitions in JSON format. Used by schedule.py.
 
-##### simulator
-
-Contains code for running a browser based simulator of sequences
 
 ## Script Descriptions
+
+##### demo.py
+
+Run a demonstration show on the LED strip. This will go through several sequences as defined in a JSON file.
 
 ##### play.py
 
 Run a single sequence on an LED strip.
 
-##### demo.py
+##### render-sequence.py
 
-Run a demonstration show on the LED strip. This will go through several sequences as defined in a JSON file.
+Render a Sequence to a static PNG image where each line represents a frame of the Sequence, and each column
+represents a single LED in the strand.
 
 ##### schedule.py
 
@@ -160,27 +171,48 @@ as a background process.
 
 ##### simulate.py
 
-Simulate a Sequence as an animated GIF.
+Simulate and save a Sequence as an animated GIF (as displayed in this readme file).
 
-##### render-sequence.py
+## 2D Simulator (Shader)
 
-Render a Sequence to a static PNG image where each line represents the state of each LED in the strand.
+![Browser 2D Simulator](demo/2d-simulator.png)
 
-## Simulator
+This code runs a local webserver that will read a Sequence represented as a PNG image and render it as
+a WebGL shader.
 
-![Browser Simulator](demo/simulator.png)
+From the `2d-simulator` directory:
+
+### Install Once:
+```
+npm install
+```
+
+### Run:
+```
+npm run dev
+```
+
+## 3D Simulator
+
+![Browser 3D Simulator](demo/3d-simulator.png)
 
 This code includes a browser-based simulator to display the lighting sequences. It uses [Node](https://nodejs.org/)
 and [Three.js](https://threejs.org/). This reads sequences as PNG images, where each column of the image represents
 a single LED in the strand, and each row represents a frame of the animated sequence.
 
-From the simulator directory:
+From the `3d-simulator` directory:
+
+### Install Once:
 ```
 npm install
-npx vite
 ```
 
-Running `npx vite` ([Vite](https://vitejs.dev/)) will start a server and tell you a local URL to load in your browser to view the simulation, like http://localhost:5173.
+### Run:
+```
+npm run dev
+```
+
+Running `npm run dev` will start a server using [Vite](https://vitejs.dev/) and provide a locally hosted URL to load in your browser to view the simulation.
 
 ## Resources
 
@@ -195,4 +227,5 @@ Running `npx vite` ([Vite](https://vitejs.dev/)) will start a server and tell yo
 
 This work is licensed under a [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) License.
 
-This work makes use of the [Adafruit CircuitPython DotStar](https://github.com/adafruit/Adafruit_CircuitPython_DotStar) library.
+This project makes use of the [Adafruit CircuitPython DotStar](https://github.com/adafruit/Adafruit_CircuitPython_DotStar) library, Three.js and other third party code. When using this project,
+please adhere to their respective licenses as necessary.
