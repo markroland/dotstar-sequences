@@ -90,6 +90,14 @@ Copy and set the .env Environment file for your configuration
 cp .env.example .env
 ```
 
+### Install
+
+The Python scripts will likely need packages installed using a Python package manager like [PIP](https://packaging.python.org/en/latest/guides/tool-recommendations/).
+
+```
+pip install -r requirements.txt
+```
+
 ### Run
 
 Run the sequence on an LED strip.
