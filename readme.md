@@ -111,6 +111,10 @@ Contains project documentation resources
 
 Python modules for static lighting patterns
 
+##### renderings
+
+A folder to contain images created by sequence-to-png.py
+
 ##### sequence
 
 Python modules for animated lighting sequences
@@ -148,9 +152,9 @@ as a background process.
 
 ##### simulate.py
 
-Render a Sequence to an animated GIF image.
+Simulate a Sequence as an animated GIF.
 
-##### sequence-to-image.py
+##### render-sequence.py
 
 Render a Sequence to a static PNG image where each line represents the state of each LED in the strand.
 
