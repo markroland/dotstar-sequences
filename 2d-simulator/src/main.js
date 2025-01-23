@@ -17,7 +17,7 @@ const maskRadius = ringRadius;
 const intensityFactor = 0.3;
 
 // Image source for the LED Sequence
-const img_source = 'rainbow.png';
+const img_source = 'cuttlefish.png';
 
 // Optional: Determine the period using the image height and a preferred
 // frame rate, i.e. (500 rows * 1000 ms/s) / 20 fps = 25000 ms
