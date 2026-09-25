@@ -13,6 +13,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 ### Acceleration
 ![Cuttlefish](demo/acceleration.gif)
 
+### Barn Door
+![Barn Door](demo/barndoor.gif)
+
 ### Breathe
 ![Cuttlefish](demo/breathe.gif)
 
@@ -54,6 +57,9 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ### Stripes
 ![Stripes](demo/stripes.gif)
+
+### Wipe
+![Wipe](demo/wipe.gif)
 
 ## Hardware Recommendations
 
