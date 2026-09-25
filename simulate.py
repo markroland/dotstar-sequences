@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw
 import math
 
 from sequence.acceleration import *
+from sequence.barndoor import *
 from sequence.breathe import *
 from sequence.clock import *
 from sequence.crossing import *
@@ -51,6 +52,15 @@ def sequence_setup(sequence_name):
         Sequence = Acceleration(NUMBER_OF_LEDS)
         Sequence.setup(6)
         sequence_length = 300
+    elif sequence_name == "barndoor":
+        Sequence = Barndoor(NUMBER_OF_LEDS)
+        period = 6
+        hue_1 = 160 / 360
+        hue_2 = 325 / 360
+        # The sequence length is subtracted by 10 to compensate for time.sleep() overshoot
+        # throughout the loop
+        sequence_length = round(period / frame_delay) - 10
+        Sequence.setup(period, hue_1, hue_2, 0)
     elif sequence_name == "breathe":
         Sequence = Breathe(NUMBER_OF_LEDS)
         Sequence.setup(0.3, 0.8)
@@ -145,6 +155,7 @@ def sequence_setup(sequence_name):
 # Parse input
 supported_sequences = [
     "acceleration",
+    "barndoor",
     "breathe",
     "csv",
     "clock",

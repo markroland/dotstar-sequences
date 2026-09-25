@@ -16,6 +16,7 @@ from sequence.acceleration import *
 from sequence.breathe import *
 from sequence.clock import *
 from sequence.crossing import *
+from sequence.barndoor import *
 from sequence.cuttlefish import *
 from sequence.points import *
 from sequence.fade import *
@@ -34,6 +35,7 @@ supported_sequences = [
     "csv",
     "clock",
     "crossing",
+    "barndoor",
     "cuttlefish",
     "fade",
     "fire",
@@ -99,6 +101,11 @@ Sequence = None
 if selected_sequence == "acceleration":
     Sequence = Acceleration(NUMBER_OF_LEDS)
     Sequence.setup(6)
+elif selected_sequence == "barndoor":
+    Sequence = Barndoor(NUMBER_OF_LEDS)
+    hue_1 = random.random()
+    hue_2 = hue_1 + 0.5 % 1
+    Sequence.setup(6, hue_1, hue_2, -45)
 elif selected_sequence == "breathe":
     frame_delay = 1/30
     Sequence = Breathe(NUMBER_OF_LEDS)
