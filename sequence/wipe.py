@@ -17,6 +17,11 @@ class Wipe:
         self.degrees_rotation = orientation
         self.period = period
 
+        # Amplifies the sine position before clamping to [-1, 1] so it pins at the
+        # extremes instead of just touching them; must be > 1 to hold fully open/closed
+        # for any length of time (at 1.0 it's back to an instantaneous touch).
+        self.dwell_factor = 1.0
+
         # Define Color 1
         color_1_hsv = colorsys.hsv_to_rgb(self.hue_1, 1.0, 1.0)
         self.color_1 = (int(color_1_hsv[0] * 255), int(color_1_hsv[1] * 255), int(color_1_hsv[2] * 255))
@@ -31,22 +36,32 @@ class Wipe:
 
     def update(self):
 
-        # Set all LEDs
+        # Set all LEDs to the background color
         dot_colors = [self.color_1] * self.number_of_leds
 
-        # Calculate wipe position
+        # Calculate wipe position (-1 fully open ... +1 fully closed). Amplifying the
+        # sine before clamping makes it dwell at -1/+1 for a visible portion of the
+        # cycle instead of only touching them for an instant.
         elapsed_time = time.time() - self.time_0
-        position = math.sin((2*math.pi) * (elapsed_time / self.period))
+        raw_position = math.sin((2*math.pi) * (elapsed_time / self.period))
+        position = max(-1.0, min(1.0, raw_position * self.dwell_factor))
+        fraction = (position + 1) / 2  # 0 = fully open, 1 = fully closed
 
-        # 0 to 1/2 of number_of_leds
-        i_position = math.floor(position * (self.number_of_leds / 4) + (self.number_of_leds / 4))
+        # Two arms grow from the two ends toward the middle. Sizing them ceil/floor of
+        # N/2 (instead of both from one shared, floor-capped position) means they sum
+        # to exactly number_of_leds at fraction=1, so every LED gets covered at full
+        # close, regardless of whether number_of_leds is odd or even.
+        low_arm_max = math.ceil(self.number_of_leds / 2)
+        high_arm_max = self.number_of_leds - low_arm_max
+        low_size = round(fraction * low_arm_max)
+        high_size = round(fraction * high_arm_max)
 
-        # Top Half
-        for i in range(i_position):
+        # Arm growing from the start of the strip
+        for i in range(low_size):
             dot_colors[i] = self.color_2
 
-        # Bottom Half
-        for i in range((self.number_of_leds-1) - i_position, self.number_of_leds-1, 1):
+        # Arm growing from the end of the strip
+        for i in range(self.number_of_leds - high_size, self.number_of_leds):
             dot_colors[i] = self.color_2
 
         # Optional: Change orientation for table

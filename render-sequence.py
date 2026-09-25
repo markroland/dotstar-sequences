@@ -31,7 +31,7 @@ from sequence.sparkle import *
 from sequence.spectrum import *
 from sequence.stripes import *
 from sequence.textFileDemo import *
-# from sequence.wipe import *
+from sequence.wipe import *
 
 load_dotenv()
 NUMBER_OF_LEDS = int(os.environ.get("NUMBER_OF_LEDS"))
@@ -124,6 +124,15 @@ def sequence_setup(sequence_name):
         Sequence.setup("data/sunrise.png")
         height = 500
         sequence_length = height
+    elif selected_sequence == "wipe":
+        Sequence = Wipe(NUMBER_OF_LEDS)
+        period = 6
+        hue_1 = 160 / 360
+        hue_2 = 325 / 360
+        # The sequence length is subtracted by 10 to compensate for time.sleep() overshoot
+        # throughout the loop
+        sequence_length = round(period / frame_delay) - 10
+        Sequence.setup(period, hue_1, hue_2, 0)
     else:
         print("Invalid sequence name")
         return None, None # or raise an exception
@@ -147,8 +156,8 @@ supported_sequences = [
     "spectrum-slide",
     "spectrum-wipe",
     "stripes",
-    "sunrise"
-    # "wipe"
+    "sunrise",
+    "wipe"
 ]
 parser = argparse.ArgumentParser()
 parser.add_argument("sequence", nargs='?', type=str, choices=supported_sequences,
