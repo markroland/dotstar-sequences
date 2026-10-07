@@ -71,7 +71,7 @@ This project contains scripts that perform lighting effect sequences for Adafrui
 
 ## Software Recommendations
 
- - Python 3.5+
+ - Python 3.11+
  - [Adafruit CircuitPython](https://github.com/adafruit/circuitpython)
 
 
@@ -99,6 +99,15 @@ cp .env.example .env
 ### Install
 
 The Python scripts will likely need packages installed using a Python package manager like [PIP](https://packaging.python.org/en/latest/guides/tool-recommendations/).
+
+*Use Python version 3 for installation (Substitute `python` for `python3` if necessary)*
+
+**Create a virtual environment**
+
+```
+python -m venv .venv
+source .venv/bin/activate
+```
 
 ```
 pip install -r requirements.txt
